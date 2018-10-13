@@ -5,49 +5,68 @@
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
-          <table class="table table-hover table-striped">
-            <thead>
-              <tr>
-                <td><b>No</b></td>
-                <td><b>NIK</b></td>
-                <td><b>Nama</b></td>
-                <td><b>Tempat, Tanggal Lahir</b></td>
-                <td><b>Jenis Kelamin</b></td>
-                <td><b>Jabatan</b></td>
-                <td><b>Divisi</b></td>
-                <td><b>Tanggal Masuk</b></td>
-                <td><b>Pendidikan</b></td>
-                <td><b>Nilai</b></td>
-                <td><b>Aksi</b></td>
-              </tr>
-            </thead>
-            <tbody>
-              <?php if ($karyawan>0) {
-                  foreach ($karyawan as $qar){?>
-                <tr>
-                  <td><?php echo $qar->id_karyawan; ?></td>
-                  <td><?php echo $qar->no_karyawan; ?></td>
-                  <td><?php echo $qar->nama_karyawan; ?></td>
-                  <td><?php echo $qar->tempat_lahir; ?>, <?php echo $qar->tanggal_lahir; ?></td>
-                  <td><?php echo $qar->jenis_kelamin; ?></td>
-                  <td><?php echo $qar->jabatan; ?></td>
-                  <td><?php echo $qar->divisi; ?></td>
-                  <td><?php echo $qar->tanggal_masuk; ?></td>
-                  <td><?php echo $qar->pendidikan; ?></td>
-                  <td><?php echo $qar->nilai; ?></td>
-                  <td><a class="btn-fill btn-warning btn pe-7s-config" href="<?php echo site_url('welcome/chperson_pg/'.$qar->id_karyawan); ?>" title="Ubah"></a>&nbsp<a class="btn-fill btn-danger btn pe-7s-close" href="#" title="Hapus"></a>&nbsp<a class="btn-fill btn-primary btn pe-7s-graph1" href="<?php echo site_url('welcome/rank/'.$qar->id_karyawan); ?>" title="Nilai"></a></td>
-                </tr>
-              <?php }
-            }
-              else {?>
-                <tr>
-                  <td colspan="11"><center>NO DATA DEFAULT</center></td>
-                </tr>
-              <?php }?>
-            </tbody>
-        </table>
+        <div class="header">
+          <h4 class="title">Halaman Data Karyawan</h4>
+          <p class="category">Cari Menggunakan Kriteria Di Bawah Ini</p>
+        </div>
+        <div class="content">
+          <div class="row">
+            <div class="col-md-5">
+              <div class="form-group">
+                <label for="sordiv">Pilih Departemen</label>
+                <select class="form-control sordiv" id="sordiv">
+                  <option selected value="">Semua Departemen</option>
+                  <?php
+                  $this->db->from('jabatan');
+                  $query=$this->db->get();
+                  $jab=$query->result();
+                  $this->db->from('bagian_divisi');
+                  $query=$this->db->get();
+                  $divi=$query->result();
+                  foreach ($divi as $D): ?>
+                  <option value="<?php echo $D->id_bagian; ?>"><?php echo $D->unique_bagian ?></option>
+                <?php endforeach; ?>
+                </select>
+                <label for="sorkar">Pilih Jabatan</label>
+                <select class="form-control sorkar" id="sorkar">
+                  <option value="" selected>Semua Jabatan</option>
+                  <?php foreach ($jab as $jB): ?>
+                    <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
+                  <?php endforeach; ?>
+                </select><br>
+                <button class="btn btn-fill btn-info btnsend" type="button" id="btnsend" name="button">Cari</button>&nbsp&nbsp&nbsp
+                <span class="text-danger" id="warn"></span>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
+    <script type="text/javascript">
+    $(document).ready(function(){
+      $('#clk').load("<?php echo site_url('welcome/dataK'); ?>");
+      $('.btnsend').click(function(event){
+        event.preventDefault();
+        var sk = $('.sorkar').val(); //Jbatan
+        var sm = $('.sordiv').val(); //Departemen
+        <?php foreach ($jab as $J): ?>
+        <?php foreach ($divi as $dI): ?>
+        if ((sm=='<?php echo $dI->id_bagian ?>')&&(sk=='<?php echo $J->unique_jabatan; ?>')) {
+          $('#clk').load("<?php echo site_url('welcome/dataKDJ/'.$J->unique_jabatan.'/'.$dI->unique_bagian); ?>");
+        }
+        else if((!sk)&&(sm=='<?php echo $dI->id_bagian ?>')) {
+          $('#clk').load("<?php echo site_url('welcome/dataKD/'.$dI->unique_bagian); ?>");
+        }
+        <?php endforeach; ?>
+        else if((sk=='<?php echo $J->unique_jabatan ?>')&&(!sm)) {
+          $('#clk').load("<?php echo site_url('welcome/dataKJ/'.$J->unique_jabatan); ?>");
+        }
+        <?php endforeach; ?>
+      });
+    });
+    </script>
+  </div>
+  <div id="clk" class="card">
   </div>
   <a class="btn-fill btn-info btn" href="<?php echo site_url('welcome/adperson_pg')?>" type="button"><i class="pe-7s-plus"><b>   Tambah</b></i></a>
 </div>

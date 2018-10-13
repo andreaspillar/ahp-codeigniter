@@ -2221,7 +2221,7 @@ fieldset[disabled] .btn-neutral.active {
 }
 
 .card .filter {
-    position: absolute;
+    position: relative;
     z-index: 2;
     background-color: rgba(0, 0, 0, 0.68);
     top: 0;
@@ -2347,7 +2347,7 @@ fieldset[disabled] .btn-neutral.active {
     width: 1px;
     background-color: #DDDDDD;
     content: "";
-    position: absolute;
+    position: relative;
 }
 
 .card .ct-chart {

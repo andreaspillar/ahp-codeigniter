@@ -15,74 +15,37 @@ class Assessors extends Login {
 		if (!$this->session->userdata('logged')) {
 			redirect('login/index');
 		}
-		else if ($this->session->userdata('logged')['level'] != '2') {
-			redirect('assessors/index');
+		else if ($this->session->userdata('logged')['level'] == '0') {
+			redirect('welcome/index');
 		}
 	}
 
 //pindah halaman
 	public function index()
 	{
-		$data['karyawan']=$this->Manager->get_data();
-		$this->load->view('karyawan/data-karyawan.php',$data);
-	}
-	public function adperson_pg()
-	{
-		$data['data']=$this->Manager->getIDBaru();
-		$this->load->view('karyawan/tambah-karyawan',$data);
-	}
-	public function chperson_pg($idg){
-		$data['ubah']=$this->Manager->get_id($idg);
-		$this->load->view('karyawan/ubah-karyawan',$data);
-	}
-	public function rank($value)
-	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai-karyawan',$data);
-	}
-	public function person_rank()
-	{
-		$this->load->view('karyawan/ranking-karyawan');
-	}
-	public function ubahm($id){
-		$data['manager']=$this->Manager->get_id($id);
-		$this->load->view('edit_man',$data);
+		 $this->load->view('karyawan/data-karyawan-rs');
 	}
 
-	//ranking-karyawan
-	public function shw()
+	public function viewRank()
 	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kary',$data);
-	}
-	public function man()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/man',$data);
-	}
-	public function kbid()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kabid',$data);
-	}
-	public function pengawas()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/pengawas',$data);
-	}
-	public function staff()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/staff',$data);
-	}
-	public function kshift()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kshift',$data);
+		$this->load->view('karyawan/final-karyawan-asc');
 	}
 
+	// dataKaryawan
+	public function dataKDJ($idJ)
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/data/karyasc',$data);
+	}
+	public function rka($idJ)
+	{
+  	$idD =  $this->session->userdata('logged')['divisi'];
+		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/ranking/kary',$data);
+	}
 
-//fungsi
+	//fungsi
 	public function updNiQa()
 	{
 		$idQ = $this->input->post('idqar');
@@ -130,41 +93,6 @@ class Assessors extends Login {
 			'pendidikan' => $pnd,
 		 );
 		 $update=$this->Manager->updateMan(array('id_karyawan'=>$id),$data);
-		 redirect('welcome/page3');
-	}
-
-	public function tabelAnalisa()
-	{
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
-	}
-	public function insertKaryawan()
-	{
-		$id = $this->input->post('id_karyawan');
-		$nik = $this->input->post('no_karyawan');
-		$nama = $this->input->post('nama_karyawan');
-		$tl = $this->input->post('tempat_lahir');
-		$tgl = $this->input->post('tanggal_lahir');
-		$jk = $this->input->post('jenis_kelamin');
-		$jb = $this->input->post('jabatan');
-		$di = $this->input->post('divisi');
-		$tgm = $this->input->post('tanggal_masuk');
-		$pnd = $this->input->post('pendidikan');
-		$nil = 0;
-		$data = array(
-			'id_karyawan' => $id,
-			'no_karyawan' => $nik,
-			'nama_karyawan' => $nama,
-			'tempat_lahir' => $tl,
-			'tanggal_lahir' => $tgl,
-			'jenis_kelamin' => $jk,
-			'jabatan' => $jb,
-			'divisi' => $di,
-			'tanggal_masuk' => $tgm,
-			'pendidikan' => $pnd,
-			'nilai' => $nil,
-		 );
-		 $insert=$this->Manager->insertKaryawan($data);
 		 redirect('welcome/page3');
 	}
 }

@@ -3,6 +3,7 @@
 	<div class="limiter">
 		<div class="container-login100">
 			<div class="wrap-login100">
+				
 				<form class="login100-form validate-form" action="<?php echo site_url('login/ath')?>" method="post">
 					<span class="login100-form-title p-b-34">
 						Penilaian PM5/6/9 Pura
@@ -16,13 +17,6 @@
 						<input class="input100" type="password" name="password" placeholder="Password">
 						<span class="focus-input100"></span>
 					</div>
-					<!-- <div class="wrap-input100 validate-input m-b-100">
-						<select class="input100 form-control" name="">
-              <option value="">Role</option>
-            </select>
-						<span class="focus-input100"></span>
-					</div> -->
-
 					<div class="container-login100-form-btn">
 						<button class="login100-form-btn">
 							Sign in
@@ -51,5 +45,32 @@
 		</div>
 	</div>
 <div id="dropDownSelect1"></div>
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		//clickforcebyuser
+		$("form").on('submit', function(event) {
+		event.preventDefault();
+		var isbn = $('#inputISBN').val();
+		var judul_buku = $('#inputJudul').val();
+		var pengarang = $('#inputPengarang').val();
+		var penerbit = $('#inputPenerbit').val();
+		var jenis = $('#inputJenis').val();
+			$.ajax({
+				type: "POST",
+				url: "<?php echo base_url();?>index.php/welcome/chkISBN",
+				data: {isbn:isbn,
+							 pengarang:pengarang,
+							 judul_buku:judul_buku,
+							 penerbit:penerbit,
+							 jenis:jenis},
+				success: function(data){
+				}
+			}).done(function(data){
+				alert(data); // This will be called after the ajax executed
+			});
+
+		});
+	});
+</script> -->
 </body>
 </html>

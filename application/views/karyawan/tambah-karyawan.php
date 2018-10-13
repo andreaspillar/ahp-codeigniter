@@ -1,5 +1,5 @@
 <?php
- 	require_once(APPPATH.'views/include/head-add.php');
+ 	require_once(APPPATH.'views/include/header.php');
 ?>
 <div class="col-md-12">
   <div class="card">
@@ -10,13 +10,14 @@
         <div class="content table-responsive table-full-width">
           <form action="<?php echo site_url('welcome/insertKaryawan')?>" method="post">
           <?php foreach($data as $idK){
-            $xpl = explode("A",$idK->id_karyawan);
-            $rename = "A".($xpl[1]+1);
+            // $xpl = explode("A",$idK->id_karyawan);
+            // $ret = $xpl[1]+1;
+            // $rename = "A".($ret);
             ?>
           <table class="table table-hover table-striped">
             <tr>
               <td><label class="control-label" for="id_kriteria">ID Kriteria</label></td>
-              <td><input class="form-control" type="text" id="id_karyawan" name="id_karyawan" value="<?php echo $rename; ?>" readonly></td>
+              <td><input class="form-control" type="text" id="id_karyawan" name="id_karyawan" value="<?php echo $idK->id_karyawan+1; ?>" readonly></td>
             </tr>
             <tr>
               <td><label class="control-label" for="no_karyawan">NIK</label></td>
@@ -40,21 +41,32 @@
                 <option value="Laki-laki">Laki-Laki</option>
                 <option value="Perempuan">Perempuan</option>
               </select> </td>
+            </tr>
               <tr>
                 <td><label class="control-label" for="jabatan">Jabatan</label></td>
                 <td><select id="jabatan" class="form-control jabatan" name="jabatan">
-                  <option value="Manajer">Manager</option>
-                  <option value="Kabid">Kepala Bidang</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Pengawas">Pengawas</option>
-                  <option value="Kepala Shift">Kepala Shift</option>
-                  <option value="Operator">Operator</option>
+                  <?php
+                  $table = 'jabatan';
+                	$othtab = 'bagian_divisi';
+                  $this->db->from($table);
+                  $query=$this->db->get();
+                  $re=$query->result();
+                  foreach ($re as $jB): ?>
+                  <option value="<?php echo $jB->unique_jabatan; ?>"><?php echo $jB->alias_jabatan; ?></option>
+                  <?php endforeach; ?>
                 </select> </td>
               </tr>
-            </tr>
             <tr>
-              <td><label class="control-label" for="divisi">Divisi</label></td>
-              <td><input class="form-control" type="text" id="divisi" name="divisi" value=""></td>
+              <td><label class="control-label" for="divisi">Bagian</label></td>
+              <td><select class="form-control divisi" id="divisi" name="divisi">
+                <?php
+                $this->db->from($othtab);
+                $query=$this->db->get();
+                $res=$query->result();
+                foreach ($res as $bG): ?>
+                <option value="<?php echo $bG->unique_bagian; ?>"><?php echo $bG->unique_bagian; ?></option>
+                <?php endforeach; ?>
+              </select></td>
             </tr>
             <tr>
               <td><label class="control-label" for="tanggal_masuk">Tanggal Masuk</label></td>

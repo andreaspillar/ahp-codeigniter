@@ -4,6 +4,7 @@ if (isset($this->session->userdata)) {
 $datasess = $this->session->userdata('logged');
 $username = $datasess['username'];
 $lvls = $datasess['level'];
+$division = $datasess['divisi'];
 }
 else {
 header("location: login");
@@ -24,6 +25,7 @@ header("location: login");
 	<script src="<?php echo base_url('assets/js/light-bootstrap-dashboard.js'); ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap-notify.js'); ?>"></script>
 	<script src="<?php echo base_url('assets/js/demo.js'); ?>"></script>
+	<script src="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/js/gijgo.min.js" type="text/javascript"></script>
 	<!-- <script src="<?php echo base_url('assets/js/print.js'); ?>"></script> -->
 
 	<!-- Webstyle -->
@@ -33,12 +35,13 @@ header("location: login");
 	<link href="<?php echo base_url('assets/css/animate.min.css'); ?>" rel="stylesheet"/>
 	<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 	<link href='http://fonts.googleapis.com/css?family=Roboto:400,700,300' rel='stylesheet' type='text/css'>
+	<link href="https://cdn.rawgit.com/atatanasov/gijgo/master/dist/combined/css/gijgo.min.css" rel="stylesheet" type="text/css" />
 	<link href="<?php echo base_url('assets/css/pe-icon-7-stroke.css'); ?>" rel="stylesheet" />
 	<link href="<?php echo base_url('assets/css/demo.css'); ?>" rel="stylesheet" />
 </head>
 <body>
 	<div class="wrapper">
-					<?php if ($lvls==='1'): ?>
+					<?php if ($lvls==='0'): ?>
 						<div class="sidebar" data-color="green" data-image="assets/img/sidebar-5.jpg">
 							<div class="sidebar-wrapper">
 								<div class="logo">
@@ -78,8 +81,20 @@ header("location: login");
 									<p>Analisa Karyawan</p>
 								</a>
 							</li>
+							<li>
+								<a href="<?php echo site_url('welcome/finalView');?>" role="button">
+									<i class="pe-7s-medal"></i>
+									<p>Peringkat Karyawan</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('welcome/shw_user');?>" role="button">
+									<i class="pe-7s-users"></i>
+									<p>Pengguna</p>
+								</a>
+							</li>
 						</ul>
-					<?php else: ?>
+					<?php elseif($lvls==='Manajer'): ?>
 						<div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
 							<div class="sidebar-wrapper">
 								<div class="logo">
@@ -95,6 +110,36 @@ header("location: login");
 								</a>
 							</li>
 						</ul>
+					<?php elseif($lvls==='2'||$lvls==='1'): ?>
+						<div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
+							<div class="sidebar-wrapper">
+								<div class="logo">
+									<a href="#" class="simple-text">
+										Sistem Penilaian Karyawan - PM569 Pura
+									</a>
+								</div>
+						<ul class="nav navbar-header navbar-fixed">
+							<li>
+								<a href="<?php echo site_url('assessors/index');?>" role="button">
+									<i class="pe-7s-user"></i>
+									<p>Karyawan Saya</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('assessors/viewRank');?>" role="button">
+									<i class="pe-7s-medal"></i>
+									<p>Ranking Karyawan Saya</p>
+								</a>
+							</li>
+						</ul>
+					<?php else: ?>
+						<div class="sidebar" data-color="red" data-image="assets/img/sidebar-5.jpg">
+							<div class="sidebar-wrapper">
+								<div class="logo">
+									<a href="#" class="simple-text">
+										Wrong Access
+									</a>
+								</div>
 					<?php endif; ?>
 		</div>
 	</div>
@@ -122,4 +167,4 @@ header("location: login");
 		                </div>
 		            </div>
 		        </nav>
-						<div class="content">
+						<div class="content container-fluid ">

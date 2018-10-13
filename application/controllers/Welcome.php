@@ -18,7 +18,7 @@ class Welcome extends Login {
 		if (!$this->session->userdata('logged')) {
 			redirect('login/index');
 		}
-		else if ($this->session->userdata('logged')['level'] != '1') {
+		else if ($this->session->userdata('logged')['level'] != '0') {
 			redirect('assessors/index');
 		}
 	}
@@ -36,8 +36,7 @@ class Welcome extends Login {
 	}
 	public function page3()
 	{
-		$data['karyawan']=$this->Manager->get_data();
-		$this->load->view('karyawan/data-karyawan.php',$data);
+		$this->load->view('karyawan/data-karyawan.php');
 	}
 	public function addkrit_pg()
 	{
@@ -67,6 +66,25 @@ class Welcome extends Login {
 	{
 		$this->load->view('karyawan/ranking-karyawan');
 	}
+	public function add_user()
+	{
+		$this->load->view('users/tambah');
+	}
+	public function shw_user()
+	{
+		$data['users']=$this->Users->get_all();
+		$this->load->view('users/read',$data);
+	}
+	public function chuser($idU)
+	{
+		$data['usub']=$this->Users->get_user($idU);
+		$this->load->view('users/ubah',$data);
+	}
+	public function finalView()
+	{
+		$this->load->view('karyawan/final-karyawan');
+	}
+
 
 	//ranking-karyawan
 	public function shw()
@@ -99,9 +117,58 @@ class Welcome extends Login {
 		$data['raK']=$this->Kriteria->get_data();
 		$this->load->view('karyawan/persons/kshift',$data);
 	}
+	//finalresuls:')
+	public function rka($idJ,$idD)
+	{
+		$idJ =  $this->uri->segment(3);
+  	$idD =  $this->uri->segment(4);
+		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/ranking/kary',$data);
+	}
+	public function rkj($idJ)
+	{
+		$data['finKa']=$this->Manager->get_by_jonly($idJ);
+		$this->load->view('karyawan/ranking/kary',$data);
+	}
+	public function dataK()
+	{
+		$data['karyawan']=$this->Manager->get_data();
+		$this->load->view('karyawan/data/kary',$data);
+	}
+	public function dataKDJ($idJ,$idD)
+	{
+		$idJ =  $this->uri->segment(3);
+		$idD =  $this->uri->segment(4);
+		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/data/kary',$data);
+	}
+	public function dataKJ($idJ)
+	{
+		$data['karyawan']=$this->Manager->get_by_jnoOR($idJ);
+		$this->load->view('karyawan/data/kary',$data);
+	}
+	public function dataKD($idD)
+	{
+		$data['karyawan']=$this->Manager->get_by_dnoOR($idD);
+		$this->load->view('karyawan/data/kary',$data);
+	}
+
+
 
 
 //fungsi
+	public function updateNiFi()
+	{
+		$idkr = $_POST['idK'];
+		$nakr = $_POST['totalakhir'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'final_nilai' => $nakr[$ide],
+			);
+			$this->Manager->updateMan(array('id_karyawan'=>$al),$datc);
+		}
+		redirect('welcome/person_rank');
+	}
 	public function updNiQa()
 	{
 		$idQ = $this->input->post('idqar');
@@ -231,5 +298,34 @@ class Welcome extends Login {
 		$data['manager']=$this->Manager->get_id($id);
 		$this->load->view('edit_man',$data);
 	}
-
+	public function updateUSR()
+	{
+		$id = $this->input->post('username');
+		$psw = $this->input->post('password');
+		$jbt = $this->input->post('jabatan');
+		$dvs = $this->input->post('divisi');
+		$data = array(
+			'username' => $id,
+			'password' => $psw,
+			'divisi' => $dvs,
+			'levels' => $jbt,
+		 );
+		 $update=$this->Users->updateMan(array('username'=>$id),$data);
+		 redirect('welcome/shw_user');
+	}
+	public function usr_add()
+	{
+		$adus = $this->input->post('username');
+		$adpa = $this->input->post('password');
+		$adja = $this->input->post('jabatan');
+		$addi = $this->input->post('divisi');
+		$data = array(
+				'username'=>$adus,
+				'password'=>$adpa,
+				'levels'=>$adja,
+				'divisi'=>$addi
+			);
+			$insert = $this->Users->insertUsers($data);
+		redirect('welcome/shw_user');
+	}
 }

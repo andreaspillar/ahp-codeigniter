@@ -28,15 +28,21 @@ class Login extends CI_Controller {
         $uid   = $data['id_user'];
         $name  = $data['username'];
         $level = $data['levels'];
+				$role = $data['divisi'];
         $sesdata = array(
             'uid'       => $uid,
             'username'  => $name,
             'level'     => $level,
+						'divisi'		=> $role,
           );
-        if($level === '1'){
+        if($level === '0'){
 					$this->session->set_userdata('logged',$sesdata);
 					redirect('welcome');
-        }elseif($level === '2'){
+        }elseif ($level === '1') {
+        	$this->session->set_userdata('logged',$sesdata);
+					redirect('assessors');
+        }
+				elseif($level === '2'){
 					$this->session->set_userdata('logged',$sesdata);
           redirect('assessors');
         }else{
