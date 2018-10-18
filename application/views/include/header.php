@@ -46,67 +46,96 @@ header("location: login");
 							<div class="sidebar-wrapper">
 								<div class="logo">
 									<a href="#" class="simple-text">
-										Sistem Penilaian Karyawan - PM569 Pura
+										Penilaian PM5/6/9
 									</a>
 								</div>
 						<ul class="nav navbar-header navbar-fixed">
 							<li>
 								<a href="<?php echo site_url('welcome/index');?>" role="button">
 									<i class="pe-7s-note2"></i>
-									<p>Kriteria</p>
+									<p>Absen (Kriteria)</p>
 								</a>
-
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/page2');?>" role="button">
+								<a hidden href="<?php echo site_url('welcome/absen2');?>" role="button">
+									<i class="pe-7s-edit"></i>
+									<p>Prioritas Absen</p>
+								</a>
+							</li>
+							<li>
+								<a hidden href="<?php echo site_url('welcome/tabelAbsen');?>" role="button">
+									<i class="pe-7s-graph1"></i>
+									<p>Analisa Absen </p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('welcome/page3');?>" role="button">
+									<i class="pe-7s-users"></i>
+									<p>Karyawan</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('welcome/person_absen');?>" role="button">
+									<i class="pe-7s-graph3"></i>
+									<p>Hitung Absensi Karyawan</p>
+								</a>
+							</li>
+						</ul>
+					<?php elseif($lvls==='1'&&$division==='HR-GA'): ?>
+						<div class="sidebar" data-color="blue" data-image="assets/img/sidebar-5.jpg">
+							<div class="sidebar-wrapper">
+								<div class="logo">
+									<a href="#" class="simple-text">
+										Penilaian PM5/6/9
+									</a>
+								</div>
+						<ul class="nav navbar-header navbar-fixed">
+							<li>
+								<a href="<?php echo site_url('HR/index');?>" role="button">
+									<i class="pe-7s-note2"></i>
+									<p>Kriteria</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('HR/page2');?>" role="button">
 									<i class="pe-7s-edit"></i>
 									<p>Prioritas Kriteria</p>
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/tabelAnalisa');?>" role="button">
+								<a href="<?php echo site_url('HR/tabelAnalisa');?>" role="button">
 									<i class="pe-7s-graph1"></i>
 									<p>Analisa Kriteria	</p>
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/page3');?>" role="button">
-									<i class="pe-7s-user"></i>
+								<a href="<?php echo site_url('HR/page3');?>" role="button">
+									<i class="pe-7s-users"></i>
 									<p>Karyawan</p>
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/person_rank');?>" role="button">
+								<a href="<?php echo site_url('HR/karyawanku');?>" role="button">
+									<i class="pe-7s-users"></i>
+									<p>Nilai Karyawan Saya</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('HR/person_rank');?>" role="button">
 									<i class="pe-7s-graph3"></i>
 									<p>Analisa Karyawan</p>
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/finalView');?>" role="button">
+								<a href="<?php echo site_url('HR/finalView');?>" role="button">
 									<i class="pe-7s-medal"></i>
 									<p>Peringkat Karyawan</p>
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('welcome/shw_user');?>" role="button">
-									<i class="pe-7s-users"></i>
-									<p>Pengguna</p>
-								</a>
-							</li>
-						</ul>
-					<?php elseif($lvls==='Manajer'): ?>
-						<div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
-							<div class="sidebar-wrapper">
-								<div class="logo">
-									<a href="#" class="simple-text">
-										Sistem Penilaian Karyawan - PM569 Pura
-									</a>
-								</div>
-						<ul class="nav navbar-header navbar-fixed">
-							<li>
-								<a href="<?php echo site_url('assessors/index');?>" role="button">
+								<a href="<?php echo site_url('HR/shw_user');?>" role="button">
 									<i class="pe-7s-user"></i>
-									<p>Karyawan Saya</p>
+									<p>Pengguna</p>
 								</a>
 							</li>
 						</ul>
@@ -115,7 +144,7 @@ header("location: login");
 							<div class="sidebar-wrapper">
 								<div class="logo">
 									<a href="#" class="simple-text">
-										Sistem Penilaian Karyawan - PM569 Pura
+										Penilaian PM5/6/9
 									</a>
 								</div>
 						<ul class="nav navbar-header navbar-fixed">
@@ -129,6 +158,28 @@ header("location: login");
 								<a href="<?php echo site_url('assessors/viewRank');?>" role="button">
 									<i class="pe-7s-medal"></i>
 									<p>Ranking Karyawan Saya</p>
+								</a>
+							</li>
+						</ul>
+					<?php elseif($lvls==='-1'): ?>
+						<div class="sidebar" data-color="orange" data-image="assets/img/sidebar-5.jpg">
+							<div class="sidebar-wrapper">
+								<div class="logo">
+									<a href="#" class="simple-text">
+										Penilaian PM5/6/9
+									</a>
+								</div>
+						<ul class="nav navbar-header navbar-fixed">
+							<li>
+								<a href="<?php echo site_url('PU/index');?>" role="button">
+									<i class="pe-7s-user"></i>
+									<p>Ranking Seluruh Karyawan</p>
+								</a>
+							</li>
+							<li>
+								<a href="<?php echo site_url('PU/karyawanku');?>" role="button">
+									<i class="pe-7s-medal"></i>
+									<p>Penilaian Manajer</p>
 								</a>
 							</li>
 						</ul>

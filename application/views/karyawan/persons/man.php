@@ -2,7 +2,7 @@
   <div class="content table-responsive table-full-width">
     <?php foreach ($raK as $rK):
       $mainkt = explode("C",$rK->id_kriteria);
-      $mkt = $mainkt[1];
+      $mkt = $rK->id_kriteria;
       ?>
       <div class="header">
         <h4 class="title">Tabel <?php echo $rK->nama_kriteria; ?></h4>
@@ -28,9 +28,9 @@
         $query=$this->db->get();
         $dKa=$query->result(); ?>
         <?php foreach ($dKa as $dK):
-          $kt = explode("C",$dK->id_kriteria);
-          $ka = explode("A",$dK->id_karyawan);
-          $rt = $kt[1];
+          // $kt = explode("C",$dK->id_kriteria);
+          // $ka = explode("A",$dK->id_karyawan);
+          $rt = $dK->id_kriteria;
           $ra = $dK->id_karyawan;
         ?>
           <th hidden><?php echo $lK->nama_karyawan; ?></th>
@@ -65,7 +65,7 @@
       <?php foreach ($dKa as $dK):
         $kt = explode("C",$dK->id_kriteria);
         $ka = explode("A",$dK->id_karyawan);
-        $rt = $kt[1];
+        $rt = $dK->id_kriteria;
         $ra = $lK->id_karyawan;
         ?>
     <tr>
@@ -142,7 +142,7 @@
   $query=$this->db->get();
   $fiRes=$query->result();
   ?>
-    <form action="<?php echo base_url('welcome/updateNiFi'); ?>" method="post">
+    <form action="<?php echo base_url('HR/updateNiFi'); ?>" method="post">
       <div id="realprint" class="card card-plain canvas_div_pdf">
         <div class="header">
           <h4 class="title">Tabel Hasil</h4>

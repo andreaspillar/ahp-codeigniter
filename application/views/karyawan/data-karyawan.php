@@ -62,12 +62,15 @@
           $('#clk').load("<?php echo site_url('welcome/dataKJ/'.$J->unique_jabatan); ?>");
         }
         <?php endforeach; ?>
+        else if((!sk)&&(!sm)) {
+          $('#clk').load("<?php echo site_url('welcome/dataK'); ?>");
+        }
       });
     });
     </script>
   </div>
   <div id="clk" class="card">
-  </div>
+  </div><br>
   <a class="btn-fill btn-info btn" href="<?php echo site_url('welcome/adperson_pg')?>" type="button"><i class="pe-7s-plus"><b>   Tambah</b></i></a>
 </div>
 <?php

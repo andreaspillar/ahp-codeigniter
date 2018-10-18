@@ -15,8 +15,14 @@ class Assessors extends Login {
 		if (!$this->session->userdata('logged')) {
 			redirect('login/index');
 		}
+		else if (($this->session->userdata('logged')['level'] == '1')&&($this->session->userdata('logged')['divisi'] == 'HR-GA')) {
+			redirect('HR/index');
+		}
 		else if ($this->session->userdata('logged')['level'] == '0') {
 			redirect('welcome/index');
+		}
+		else if ($this->session->userdata('logged')['level'] == '-1') {
+			redirect('PU/index');
 		}
 	}
 
@@ -29,6 +35,11 @@ class Assessors extends Login {
 	public function viewRank()
 	{
 		$this->load->view('karyawan/final-karyawan-asc');
+	}
+	public function rank($value)
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/nilai-karyawan-rs',$data);
 	}
 
 	// dataKaryawan
@@ -66,33 +77,5 @@ class Assessors extends Login {
 			$this->Detkar->insertArray($datb);
 		}
 		redirect('welcome/page3');
-	}
-
-	public function updateKaryawan()
-	{
-		$id = $this->input->post('id_karyawan');
-		$nik = $this->input->post('no_karyawan');
-		$nama = $this->input->post('nama_karyawan');
-		$tl = $this->input->post('tempat_lahir');
-		$tgl = $this->input->post('tanggal_lahir');
-		$jk = $this->input->post('jenis_kelamin');
-		$jb = $this->input->post('jabatan');
-		$di = $this->input->post('divisi');
-		$tgm = $this->input->post('tanggal_masuk');
-		$pnd = $this->input->post('pendidikan');
-		$data = array(
-			'id_karyawan' => $id,
-			'no_karyawan' => $nik,
-			'nama_karyawan' => $nama,
-			'tempat_lahir' => $tl,
-			'tanggal_lahir' => $tgl,
-			'jenis_kelamin' => $jk,
-			'jabatan' => $jb,
-			'divisi' => $di,
-			'tanggal_masuk' => $tgm,
-			'pendidikan' => $pnd,
-		 );
-		 $update=$this->Manager->updateMan(array('id_karyawan'=>$id),$data);
-		 redirect('welcome/page3');
 	}
 }

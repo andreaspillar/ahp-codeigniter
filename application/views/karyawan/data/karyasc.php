@@ -33,7 +33,7 @@
               <td hidden><?php echo $qar->tanggal_masuk; ?></td>
               <td hidden><?php echo $qar->pendidikan; ?></td>
               <td>
-                <a class="btn btn-block btn-fill btn-primary" href="<?php echo site_url('welcome/rank/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai</a>
+                <a class="btn btn-block btn-fill btn-primary" href="<?php echo site_url('assessors/rank/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai</a>
               </td>
             </tr>
           <?php }

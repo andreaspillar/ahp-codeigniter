@@ -57,10 +57,10 @@
                   ?>
                   <td><b><?php echo $bc->nama_kriteria; ?></b></td>
                   <?php foreach ($anK as $at):
-                    $pt = explode("C",$at->kriteria_x);
-                    $ps = explode("C",$at->kriteria_y);
-                    $re = $ps[1];
-                    $rf = $pt[1];
+                    // $pt = explode("C",$at->kriteria_x);
+                    // $ps = explode("C",$at->kriteria_y);
+                    $re = $at->kriteria_y;
+                    $rf = $at->kriteria_x;
                   ?>
                     <td class="calculate<?php echo $re; ?>" id="R<?php echo $re.$rf; ?>"><?php echo $at->nilai_krit; ?></td>
                   <?php endforeach; ?>
@@ -71,7 +71,7 @@
               <?php
               foreach ($listKrit as $tt):
                 $pt = explode("C",$tt->id_kriteria);
-                $re = $pt[1];
+                $re = $tt->id_kriteria;
                 ?>
                 <td class="bg-info" id="sumR<?php echo $re; ?>"></td>
                 <script type="text/javascript">
@@ -106,8 +106,8 @@
           </thead>
           <tbody>
             <?php foreach ($listKrit as $bc):
-              $pt = explode("C",$bc->id_kriteria);
-              $rx = $pt[1];
+              // $pt = explode("C",$bc->id_kriteria);
+              $rx = $bc->id_kriteria;
               ?>
               <tr>
                   <?php
@@ -118,10 +118,10 @@
                   ?>
                   <td><b><?php echo $bc->nama_kriteria; ?></b></td>
                   <?php foreach ($anK as $at):
-                    $pt = explode("C",$at->kriteria_x);
-                    $ps = explode("C",$at->kriteria_y);
-                    $re = $ps[1];
-                    $rf = $pt[1];
+                    // $pt = explode("C",$at->kriteria_x);
+                    // $ps = explode("C",$at->kriteria_y);
+                    $re = $at->kriteria_y;
+                    $rf = $at->kriteria_x;
                   ?>
                     <td class="calmul<?php echo $rf; ?>" id="ml<?php echo $re.$rf; ?>"><?php echo $at->nilai_krit; ?></td>
                     <script type="text/javascript">
@@ -168,8 +168,8 @@
           </thead>
           <tbody>
             <?php foreach ($listKrit as $bc):
-              $pt = explode("C",$bc->id_kriteria);
-              $rx = $pt[1];
+              // $pt = explode("C",$bc->id_kriteria);
+              $rx = $bc->id_kriteria;
               ?>
               <tr>
                   <?php
@@ -180,10 +180,10 @@
                   ?>
                   <td><b><?php echo $bc->nama_kriteria; ?></b></td>
                   <?php foreach ($anK as $at):
-                    $pt = explode("C",$at->kriteria_x);
-                    $ps = explode("C",$at->kriteria_y);
-                    $re = $ps[1];
-                    $rf = $pt[1];
+                    // $pt = explode("C",$at->kriteria_x);
+                    // $ps = explode("C",$at->kriteria_y);
+                    $re = $at->kriteria_y;
+                    $rf = $at->kriteria_x;
                   ?>
                     <td class="mtrx<?php echo $rf; ?>" id="mt<?php echo $re.$rf; ?>"><?php echo $at->nilai_krit; ?></td>
 
@@ -211,7 +211,7 @@
           </tbody>
         </table>
 <!-- Rasio Konsistensi -->
-        <form class="" action="<?php echo base_url('welcome/updateNiKr'); ?>" method="post" onsubmit="return check()">
+        <form class="" action="<?php echo base_url('HR/updateNiKr'); ?>" method="post" onsubmit="return check()">
           <div class="header">
               <h4 class="title">Tabel Rasio Konsistensi</h4>
               <p class="category">Tabel Rasio Konsistensi, dibandingkan dengan tabel alternatif</p>
@@ -227,8 +227,8 @@
             </thead>
             <tbody>
               <?php foreach ($listKrit as $bc):
-                $pt = explode("C",$bc->id_kriteria);
-                $rx = $pt[1];
+                // $pt = explode("C",$bc->id_kriteria);
+                $rx = $bc->id_kriteria;
                 ?>
                 <tr>
                     <td><b><?php echo $bc->nama_kriteria; ?></b></td>

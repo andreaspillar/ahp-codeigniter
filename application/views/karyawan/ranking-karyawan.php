@@ -36,22 +36,22 @@
             $('.sorkar').on("change",function(){
               var sk = $('.sorkar').val();
               if (sk=='Manajer') {
-                $('#clk').load("<?php echo base_url().'welcome/man'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/man'; ?>");
               }
               else if (sk=='Kepala Bidang') {
-                $('#clk').load("<?php echo base_url().'welcome/kbid'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/kbid'; ?>");
               }
               else if (sk=='Staff') {
-                $('#clk').load("<?php echo base_url().'welcome/staff'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/staff'; ?>");
               }
               else if (sk=='Pengawas') {
-                $('#clk').load("<?php echo base_url().'welcome/pengawas'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/pengawas'; ?>");
               }
               else if (sk=='Kepala Shift') {
-                $('#clk').load("<?php echo base_url().'welcome/kshift'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/kshift'; ?>");
               }
               else {
-                $('#clk').load("<?php echo base_url().'welcome/shw'; ?>");
+                $('#clk').load("<?php echo base_url().'HR/shw'; ?>");
               }
             });
           });

@@ -34,8 +34,6 @@ class kriteria extends CI_Model{
 	}
 	public function get_id($id)
 	{
-		$this->db->select('id_kriteria');
-		$this->db->select('nama_kriteria');
 		$this->db->from($this->table);
 		$this->db->where('id_kriteria',$id);
 		$query = $this->db->get();
@@ -47,7 +45,7 @@ class kriteria extends CI_Model{
 		$this->db->limit(1);
 		$query=$this->db->get();
 		if ($query->result()==0) {
-			return FALSE;
+		 	return FALSE;
 		}
 		else {
 			return $query->result();
@@ -61,6 +59,12 @@ class kriteria extends CI_Model{
 	public function updateKrit($where,$data)
 	{
 		$this->db->update($this->table, $data, $where);
+		return $this->db->affected_rows();
+	}
+	public function delKrit($where)
+	{
+		$this->db->where('id_kriteria',$where);
+		$this->db->delete($this->table);
 		return $this->db->affected_rows();
 	}
 }

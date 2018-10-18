@@ -5,7 +5,7 @@
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
-        <form class="" action="<?php echo base_url('welcome/usr_add'); ?>" method="post">
+        <form class="" action="<?php echo base_url('HR/usr_add'); ?>" method="post">
           <table class="table table-hover">
             <tbody>
               <tr>

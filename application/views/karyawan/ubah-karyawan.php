@@ -15,6 +15,10 @@
           <form action="<?php echo site_url('welcome/updateKaryawan')?>" method="post">
           <table class="table table-hover">
             <tr>
+              <td><label class="control-label" for="no_karyawan">id</label></td>
+              <td><input readonly class="form-control" type="text" id="id_karyawan" name="id_karyawan" value="<?php echo $idK->id_karyawan; ?>"></td>
+            </tr>
+            <tr>
               <td><label class="control-label" for="no_karyawan">NIK</label></td>
               <td><input class="form-control" type="text" id="no_karyawan" name="no_karyawan" value="<?php echo $idK->no_karyawan; ?>"></td>
             </tr>

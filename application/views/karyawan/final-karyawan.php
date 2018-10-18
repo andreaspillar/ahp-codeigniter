@@ -62,12 +62,12 @@
               <?php foreach ($divi as $dI): ?>
               if ((sm=='<?php echo $dI->id_bagian ?>')&&(sk=='<?php echo $J->unique_jabatan; ?>')) {
                 $('#warn').html('');
-                $('#clk').load("<?php echo site_url('welcome/rka/'.$J->unique_jabatan.'/'.$dI->unique_bagian); ?>");
+                $('#clk').load("<?php echo site_url('HR/rka/'.$J->unique_jabatan.'/'.$dI->unique_bagian); ?>");
               }
               <?php endforeach; ?>
               else if((sk=='<?php echo $J->unique_jabatan ?>')&&(sm=='')) {
                 $('#warn').html('');
-                $('#clk').load("<?php echo site_url('welcome/rkj/'.$J->unique_jabatan); ?>");
+                $('#clk').load("<?php echo site_url('HR/rkj/'.$J->unique_jabatan); ?>");
               }
               else if (!sk) {
                 $('#warn').html('Perhatian: Pilih Jabatan Untuk Melihat Hasil');

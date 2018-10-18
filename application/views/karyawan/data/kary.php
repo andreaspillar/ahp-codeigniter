@@ -1,3 +1,10 @@
+  <table class="table" border="0">
+    <tr>
+      <td>
+        <a class="btn-fill btn-info btn" href="<?php echo site_url('welcome/adperson_pg')?>" type="button"><i class="pe-7s-plus"></i>   Tambah</a>
+      </td>
+    </tr>
+  </table>
 <div class="card card-plain">
   <div class="content table-responsive table-full-width">
       <table class="table table-hover table-striped">
@@ -9,7 +16,8 @@
             <td hidden><b>Jenis Kelamin</b></td>
             <td class="text-center"><b>Jabatan</b></td>
             <td class="text-center"><b>Departemen</b></td>
-            <td class="text-center"><b>Status Nilai</b></td>
+            <td class="text-center"><b>Nilai Kriteria</b></td>
+            <td class="text-center"><b>Nilai Absen</b></td>
             <td hidden><b>Tanggal Masuk</b></td>
             <td hidden><b>Pendidikan</b></td>
             <td class="text-center"><b>Aksi</b></td>
@@ -30,11 +38,60 @@
               <?php } else{ ?>
                 <td class="bg-danger" >Belum Dinilai</td>
               <?php } ?>
-              <td hidden><?php echo $qar->tanggal_masuk; ?></td>
-              <td hidden><?php echo $qar->pendidikan; ?></td>
-              <td><a class="btn-fill btn-warning btn btn-block" href="<?php echo site_url('welcome/chperson_pg/'.$qar->id_karyawan); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
-                <a class="btn btn-fill btn-danger btn-block" href="#" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
-                <a class="btn btn-block btn-fill btn-primary" href="<?php echo site_url('welcome/rank/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai</a>
+              <?php if ($qar->absen != 0){ ?>
+                <td class="bg-success" ><a href="#" id="hasilK<?php echo $qar->id_karyawan ?>">Sudah Dinilai</a></td>
+                <td>
+                  <a class="btn-fill btn-warning btn btn-block" href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
+                  <a class="btn btn-fill btn-danger btn-block" href="" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
+                </td>
+              <?php } else{ ?>
+                <td class="bg-danger" >Belum Dinilai</td>
+                <td hidden><?php echo $qar->tanggal_masuk; ?></td>
+                <td hidden><?php echo $qar->pendidikan; ?></td>
+                <td>
+                  <a class="btn-fill btn-warning btn btn-block" href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
+                  <a class="btn btn-fill btn-danger btn-block" href="" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
+                  <a class="btn btn-block btn-fill btn-success" href="<?php echo site_url('welcome/rksen/'.base64_encode($qar->no_karyawan)); ?>" title="Nilai Absen Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai Absen</a>
+                </td>
+              <?php } ?>
+            </tr>
+            <tr id="infonil<?php echo $qar->id_karyawan ?>" hidden>
+              <td colspan="2">
+                <?php
+                $this->db->where('id_karyawan',$qar->id_karyawan);
+                $this->db->from('absen_karyawan');
+                $deta = $this->db->get();
+                $resD = $deta->result();
+                foreach ($resD as $deK): ?>
+                <?php
+                $this->db->where('id_absen',$deK->id_absen);
+                $this->db->from('absen');
+                $kri = $this->db->get();
+                $hasK = $kri->result();
+                foreach ($hasK as $hK): ?>
+                  <?php echo $hK->nama_absen; ?><br>
+                <?php endforeach; ?>
+                <?php endforeach; ?>
+              </td>
+              <td colspan="4">
+                <?php
+                $this->db->where('id_karyawan',$qar->id_karyawan);
+                $this->db->from('absen_karyawan');
+                $deta = $this->db->get();
+                $resD = $deta->result();
+                foreach ($resD as $deK): ?>
+                <?php
+                $this->db->where('id_absen',$deK->id_absen);
+                $this->db->from('absen');
+                $kri = $this->db->get();
+                $hasK = $kri->result();
+                foreach ($hasK as $hK): ?>
+                  <?php echo $deK->nilai_absen; ?><br>
+                <?php endforeach; ?>
+                <?php endforeach; ?>
+              </td>
+              <td colspan="2">
+                <a class="btn btn-info btn-fill btn-block" id="" href="<?php echo site_url('welcome/rank/'.base64_encode($qar->id_karyawan)) ?>">Ubah</a>
               </td>
             </tr>
           <?php }
@@ -48,3 +105,13 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    <?php foreach ($karyawan as $b): ?>
+    $("#hasilK<?php echo $b->id_karyawan; ?>").click(function(event){
+      event.preventDefault();
+      $("#infonil<?php echo $b->id_karyawan; ?>").toggle();
+    });
+    <?php endforeach; ?>
+  });
+</script>

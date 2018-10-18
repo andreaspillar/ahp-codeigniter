@@ -38,14 +38,22 @@ class Login extends CI_Controller {
         if($level === '0'){
 					$this->session->set_userdata('logged',$sesdata);
 					redirect('welcome');
-        }elseif ($level === '1') {
+        }elseif (($level === '1')&&($role != 'HR-GA')) {
         	$this->session->set_userdata('logged',$sesdata);
 					redirect('assessors');
+        }elseif (($level === '1')&&($role == 'HR-GA')) {
+        	$this->session->set_userdata('logged',$sesdata);
+					redirect('HR');
         }
 				elseif($level === '2'){
 					$this->session->set_userdata('logged',$sesdata);
           redirect('assessors');
-        }else{
+        }
+				elseif($level === '-1'){
+					$this->session->set_userdata('logged',$sesdata);
+          redirect('PU');
+        }
+				else{
           redirect('page/staff');
         }
 				return $level;

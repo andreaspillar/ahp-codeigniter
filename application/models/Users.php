@@ -27,6 +27,18 @@ class users extends CI_Model{
 			echo "Error!";
 		}
 	}
+	public function get_byL()
+	{
+		$this->db->order_by('levels','ASC');
+		$this->db->from($this->table);
+		$query = $this->db->get();
+		if ($query->result() != NULL) {
+			return $query->result();
+		}
+		else{
+			echo "Error!";
+		}
+	}
 	public function get_user($idU)
 	{
 		$this->db->from($this->table);

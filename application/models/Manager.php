@@ -21,13 +21,24 @@ class manager extends CI_Model{
 		return 0;
 	}
 	}
+  public function get_noMAN() {
+  $this->db->where('jabatan !=','Manajer');
+  $this->db->from($this->table);
+  $query = $this->db->get();
+	if($query->num_rows()>0){
+		return $query->result();
+	}
+	else {
+		return 0;
+	}
+	}
 
 	public function get_by_jd($uniqJ,$uniqD)
 	{
 		$this->db->from($this->table);
 		$this->db->where('jabatan',$uniqJ);
 		$this->db->where('divisi',$uniqD);
-		$this->db->order_by('final_nilai','DESC');
+		$this->db->order_by('final_total','DESC');
 		$fire = $this->db->get();
 		if ($fire->result()==0) {
 			return FALSE;
@@ -40,7 +51,7 @@ class manager extends CI_Model{
 	{
 		$this->db->from($this->table);
 		$this->db->where('jabatan',$uniqJ);
-		$this->db->order_by('final_nilai','DESC');
+		$this->db->order_by('final_total','DESC');
 		$fire = $this->db->get();
 		if ($fire->result()==0) {
 			return FALSE;
@@ -53,7 +64,7 @@ class manager extends CI_Model{
 	{
 		$this->db->from($this->table);
 		$this->db->where('divisi',$uniqD);
-		$this->db->order_by('final_nilai','DESC');
+		$this->db->order_by('final_total','DESC');
 		$fire = $this->db->get();
 		if ($fire->result()==0) {
 			return FALSE;
@@ -87,6 +98,19 @@ class manager extends CI_Model{
 			return $fire->result();
 		}
 	}
+	public function get_by_dnoMANOR($uniqD)
+	{
+		$this->db->where('jabatan !=','Manajer');
+		$this->db->from($this->table);
+		$this->db->where('divisi',$uniqD);
+		$fire = $this->db->get();
+		if ($fire->result()==0) {
+			return FALSE;
+		}
+		else {
+			return $fire->result();
+		}
+	}
 
   public function get_where($rold) {
 	$this->db->where('divisi',$rold);
@@ -104,6 +128,13 @@ class manager extends CI_Model{
 	{
 		$this->db->from($this->table);
 		$this->db->where('id_karyawan',$id);
+		$query = $this->db->get();
+		return $query->result();
+	}
+	public function get_no($id)
+	{
+		$this->db->from($this->table);
+		$this->db->where('no_karyawan',$id);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -136,6 +167,13 @@ class manager extends CI_Model{
 	{
 		$this->db->insert($this->table,$data);
 		return $this->db->insert_id();
+	}
+	public function resetN($data)
+	{
+		$this->db->update($this->table, $data);
+		$this->db->empty_table('absen_karyawan');
+		$this->db->empty_table('detail_karyawan');
+		return $this->db->affected_rows();
 	}
 }
 ?>

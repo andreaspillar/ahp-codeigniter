@@ -10,11 +10,15 @@ class Welcome extends Login {
 		$this->load->helper('form');
 		$this->load->library('form_validation');
 		$this->load->library('session');
+		$this->load->library('encryption');
 		$this->load->Model('Manager');
 		$this->load->Model('Kriteria');
 		$this->load->Model('Nilai');
 		$this->load->Model('Ankrit');
+		$this->load->Model('Anab');
 		$this->load->Model('Detkar');
+		$this->load->Model('Abkar');
+		$this->load->Model('Absen');
 		if (!$this->session->userdata('logged')) {
 			redirect('login/index');
 		}
@@ -23,30 +27,38 @@ class Welcome extends Login {
 		}
 	}
 
+	public function testPHP()
+	{
+		phpinfo();
+	}
+	public function tests()
+	{
+		$a = base64_encode('05781623');
+		echo $a;
+		$b = base64_decode('MDU3ODE2MjM=');
+		echo "<br>".$b;
+	}
+
+
 //pindah halaman
 	public function index()
 	{
-			$data['data_kriteria']=$this->Kriteria->get_asc();
-			$this->load->view('kriteria/view-kriteria',$data);
+			$data['data_kriteria']=$this->Absen->get_asc();
+			$this->load->view('absen/view-absen',$data);
 	}
-	public function page2()
+	public function chkrit_pg($idk)
 	{
-		$data2['data_kriteria']=$this->Kriteria->get_data();
-		$this->load->view('nilai-kriteria/read-nilai',$data2);
+		$data['absen']=$this->Absen->get_id($idk);
+		$this->load->view('kriteria/edit-kriteria',$data);
+	}
+	public function absen2()
+	{
+		$data2['data_absen']=$this->Absen->get_data();
+		$this->load->view('nilai-absen/read-absen',$data2);
 	}
 	public function page3()
 	{
 		$this->load->view('karyawan/data-karyawan.php');
-	}
-	public function addkrit_pg()
-	{
-		$data['data']=$this->Kriteria->getIDBaru();
-		$this->load->view('kriteria/tambah-kriteria',$data);
-	}
-	public function chkrit_pg($idk)
-	{
-		$data['ubah']=$this->Kriteria->get_id($idk);
-		$this->load->view('kriteria/edit-kriteria',$data);
 	}
 	public function adperson_pg()
 	{
@@ -54,17 +66,29 @@ class Welcome extends Login {
 		$this->load->view('karyawan/tambah-karyawan',$data);
 	}
 	public function chperson_pg($idg){
-		$data['ubah']=$this->Manager->get_id($idg);
+		$absen = base64_decode($idg);
+		$data['ubah']=$this->Manager->get_id($absen);
 		$this->load->view('karyawan/ubah-karyawan',$data);
 	}
-	public function rank($value)
+	public function rank($value) //NILAI PER KARYAWAN
 	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai-karyawan',$data);
+		$val2 = base64_decode($value);
+		$data['nilK']=$this->Manager->get_id($val2);
+		$this->load->view('karyawan/absen/absen-edit',$data);
+	}
+	public function rksen($value) //Absen PER karyawan
+	{
+		$absen = base64_decode($value);
+		$data['nilK']=$this->Manager->get_no($absen);
+		$this->load->view('karyawan/absen/absen-karyawan',$data);
 	}
 	public function person_rank()
 	{
-		$this->load->view('karyawan/ranking-karyawan');
+		$this->load->view('karyawan/ranking-absen');
+	}
+	public function person_absen()
+	{
+		$this->load->view('karyawan/ranking-absen');
 	}
 	public function add_user()
 	{
@@ -84,39 +108,44 @@ class Welcome extends Login {
 	{
 		$this->load->view('karyawan/final-karyawan');
 	}
+	public function tabelAbsen()
+	{
+		$datb['tabel'] = $this->Anab->get_data();
+		$this->load->view('nilai-absen/calculate-table',$datb);
+	}
 
+	// absen
+	public function abk()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/kary',$data);
+	}
+	public function abm()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/man',$data);
+	}
+	public function abkb()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/kabid',$data);
+	}
+	public function abp()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/pengawas',$data);
+	}
+	public function abs()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/staff',$data);
+	}
+	public function abks()
+	{
+		$data['raK']=$this->Absen->get_data();
+		$this->load->view('karyawan/personabsen/kshift',$data);
+	}
 
-	//ranking-karyawan
-	public function shw()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kary',$data);
-	}
-	public function man()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/man',$data);
-	}
-	public function kbid()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kabid',$data);
-	}
-	public function pengawas()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/pengawas',$data);
-	}
-	public function staff()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/staff',$data);
-	}
-	public function kshift()
-	{
-		$data['raK']=$this->Kriteria->get_data();
-		$this->load->view('karyawan/persons/kshift',$data);
-	}
 	//finalresuls:')
 	public function rka($idJ,$idD)
 	{
@@ -157,6 +186,27 @@ class Welcome extends Login {
 
 
 //fungsi
+
+	public function updateKriteria()
+	{
+		$idKr = $this->input->post('id_absen');
+		$nmKr = $this->input->post('nama_absen');
+		$ks = $this->input->post('kurang_sekali');
+		$k = $this->input->post('kurang');
+		$c = $this->input->post('cukup');
+		$b = $this->input->post('baik');
+		$bs = $this->input->post('baik_sekali');
+		$data = array(
+			'nama_absen' => $nmKr,
+			'ket_nil1' => $ks,
+			'ket_nil2' => $k,
+			'ket_nil3' => $c,
+			'ket_nil4' => $b,
+			'ket_nil5' => $bs,
+		 );
+		$update=$this->Absen->updateKrit(array('id_absen'=>$idKr),$data);
+		redirect('welcome/index');
+	}
 	public function updateNiFi()
 	{
 		$idkr = $_POST['idK'];
@@ -164,6 +214,20 @@ class Welcome extends Login {
 		foreach ($idkr as $ide => $al) {
 			$datc = array(
 				'final_nilai' => $nakr[$ide],
+			);
+			$this->Manager->updateMan(array('id_karyawan'=>$al),$datc);
+		}
+		redirect('HR/person_rank');
+	}
+	public function updateFiAb()
+	{
+		$idkr = $_POST['idK'];
+		$nabs = $_POST['totalabsen'];
+		$nakr = $_POST['totalakhir'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'final_absen' => $nabs[$ide],
+				'final_total' => $nakr[$ide],
 			);
 			$this->Manager->updateMan(array('id_karyawan'=>$al),$datc);
 		}
@@ -190,6 +254,27 @@ class Welcome extends Login {
 		}
 		redirect('welcome/page3');
 	}
+	public function updAbQa()
+	{
+		$idQ = $this->input->post('idqar');
+		$this->Abkar->deltabID($idQ);
+		$cRQ = $_POST['C'];
+		$nLQ = $_POST['KR'];
+		$niQ = $this->input->post('total');
+		$data = array(
+			'absen'=>$niQ,
+		);
+		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
+		foreach ($cRQ as $Kr => $v) {
+			$datb = array(
+				'id_absen' => $v,
+				'id_karyawan' => $idQ,
+				'nilai_absen' => $nLQ[$Kr]
+			);
+			$this->Abkar->insertArray($datb);
+		}
+		redirect('welcome/page3');
+	}
 	public function updateNiKr()
 	{
 		$idkr = $_POST['id_kriteria'];
@@ -203,29 +288,42 @@ class Welcome extends Login {
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
+	public function updateNiAb()
+	{
+		$idkr = $_POST['id_absen'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_absen' => $nakr[$ide],
+			);
+			$this->Absen->updateKrit(array('id_absen'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->Anab->get_data();
+		$this->load->view('nilai-absen/calculate-table',$datb);
+	}
 	public function updateKaryawan()
 	{
 		$id = $this->input->post('id_karyawan');
 		$nik = $this->input->post('no_karyawan');
 		$nama = $this->input->post('nama_karyawan');
-		$tl = $this->input->post('tempat_lahir');
-		$tgl = $this->input->post('tanggal_lahir');
-		$jk = $this->input->post('jenis_kelamin');
+		// $tl = $this->input->post('tempat_lahir');
+		// $tgl = $this->input->post('tanggal_lahir');
+		// $jk = $this->input->post('jenis_kelamin');
 		$jb = $this->input->post('jabatan');
 		$di = $this->input->post('divisi');
-		$tgm = $this->input->post('tanggal_masuk');
-		$pnd = $this->input->post('pendidikan');
+		// $tgm = $this->input->post('tanggal_masuk');
+		// $pnd = $this->input->post('pendidikan');
 		$data = array(
-			'id_karyawan' => $id,
+			// 'id_karyawan' => $id,
 			'no_karyawan' => $nik,
 			'nama_karyawan' => $nama,
-			'tempat_lahir' => $tl,
-			'tanggal_lahir' => $tgl,
-			'jenis_kelamin' => $jk,
+			// 'tempat_lahir' => $tl,
+			// 'tanggal_lahir' => $tgl,
+			// 'jenis_kelamin' => $jk,
 			'jabatan' => $jb,
 			'divisi' => $di,
-			'tanggal_masuk' => $tgm,
-			'pendidikan' => $pnd,
+			// 'tanggal_masuk' => $tgm,
+			// 'pendidikan' => $pnd,
 		 );
 		 $update=$this->Manager->updateMan(array('id_karyawan'=>$id),$data);
 		 redirect('welcome/page3');
@@ -247,10 +345,22 @@ class Welcome extends Login {
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
-	public function tabelAnalisa()
+	public function showAbsen()
 	{
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
+		$cleT = $this->Anab->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'absen_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'absen_y'=>$crib[$key]
+			);
+			$insert = $this->Anab->insertArray($data);
+		}
+		$datb['tabel'] = $this->Anab->get_data();
+		$this->load->view('nilai-absen/calculate-table',$datb);
 	}
 	public function insertKaryawan()
 	{
@@ -324,8 +434,13 @@ class Welcome extends Login {
 				'password'=>$adpa,
 				'levels'=>$adja,
 				'divisi'=>$addi
-			);
-			$insert = $this->Users->insertUsers($data);
+		);
+		$insert = $this->Users->insertUsers($data);
 		redirect('welcome/shw_user');
+	}
+	public function delKrit($idKr)
+	{
+		$this->Kriteria->delKrit($idKr);
+		redirect('welcome/index');
 	}
 }
