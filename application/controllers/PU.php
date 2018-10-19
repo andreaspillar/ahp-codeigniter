@@ -34,12 +34,12 @@ class PU extends Login {
 	}
 	public function karyawanku()
 	{//ganti view
-		 $this->load->view('karyawan/data-karyawan-man');
+		 $this->load->view('karyawan/data-rs-man');
 	}
 	public function karyawanJ($idJ)
 	{
 		$data['karyawan']=$this->Manager->get_by_jonly($idJ);
-		$this->load->view('karyawan/data/karypu',$data);
+		$this->load->view('karyawan/data/karyascman',$data);
 	}
 
 
@@ -47,12 +47,12 @@ class PU extends Login {
 	public function rank($value)
 	{
 		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-pu',$data);
+		$this->load->view('karyawan/nilai/nilai-karyawan-edit',$data);
 	}
-	public function rankupdate($value)
+	public function rankn($value)
 	{
 		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-edit',$data);
+		$this->load->view('karyawan/nilai/nilai-karyawan-edma',$data);
 	}
 	public function rka($idJ,$idD)
 	{
@@ -136,6 +136,27 @@ class PU extends Login {
 	}
 	//FOR KARYAWANKU
 
+	public function updNiQaKu()
+	{
+		$idQ = $this->input->post('idqar');
+		$this->Detkar->deltabID($idQ);
+		$cRQ = $_POST['C'];
+		$nLQ = $_POST['KR'];
+		$niQ = $this->input->post('total');
+		$data = array(
+			'nilai'=>$niQ,
+		);
+		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
+		foreach ($cRQ as $Kr => $v) {
+			$datb = array(
+				'id_kriteria' => $v,
+				'id_karyawan' => $idQ,
+				'nilai_kriteria' => $nLQ[$Kr]
+			);
+			$this->Detkar->insertArray($datb);
+		}
+		redirect('PU/karyawanku');
+	}
 	public function updateNiKr()
 	{
 		$idkr = $_POST['id_kriteria'];

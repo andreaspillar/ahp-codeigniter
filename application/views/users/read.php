@@ -41,7 +41,7 @@
         <tbody>
           <tr>
             <td colspan="4">
-              <a class="btn-fill btn-info btn" href="<?php echo site_url('welcome/add_user/'); ?>" title="Tambah Data User" type="button"><i class="pe-7s-config"></i> Tambah</a>
+              <a class="btn-fill btn-info btn" href="<?php echo site_url('HR/add_user/'); ?>" title="Tambah Data User" type="button"><i class="pe-7s-config"></i> Tambah</a>
             </td>
           </tr>
         </tbody>

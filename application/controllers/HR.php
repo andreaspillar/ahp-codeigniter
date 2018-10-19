@@ -68,7 +68,12 @@ class HR extends Login {
 	public function rank($value)
 	{
 		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-man',$data);
+		$this->load->view('karyawan/nilai/nilai-karyawan-edit',$data);
+	}
+	public function rankn($value)
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/nilai-karyawan-edma',$data);
 	}
 	public function add_user()
 	{
@@ -234,9 +239,30 @@ class HR extends Login {
 			);
 			$this->Detkar->insertArray($datb);
 		}
-		redirect('HR/karyawanku');
+		redirect('HR/page3');
 	}
 	//FOR KARYAWANKU
+	public function updNiQaku()
+	{
+		$idQ = $this->input->post('idqar');
+		$this->Detkar->deltabID($idQ);
+		$cRQ = $_POST['C'];
+		$nLQ = $_POST['KR'];
+		$niQ = $this->input->post('total');
+		$data = array(
+			'nilai'=>$niQ,
+		);
+		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
+		foreach ($cRQ as $Kr => $v) {
+			$datb = array(
+				'id_kriteria' => $v,
+				'id_karyawan' => $idQ,
+				'nilai_kriteria' => $nLQ[$Kr]
+			);
+			$this->Detkar->insertArray($datb);
+		}
+		redirect('HR/karyawanku');
+	}
 
 	public function updateNiKr()
 	{

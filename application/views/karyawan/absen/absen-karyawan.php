@@ -1,7 +1,3 @@
-<?php
- 	require_once(APPPATH.'views/include/header.php');
-?>
-<div class="col-md-12">
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
@@ -79,7 +75,8 @@
                 }
               });
               <?php foreach ($listNil as $b): ?>
-              $("#shwIn<?php echo $b->id_absen; ?>").click(function(){
+              $("#shwIn<?php echo $b->id_absen; ?>").click(function(event){
+                event.preventDefault();
                 $("#cell<?php echo $b->id_absen; ?>").toggle();
               });
               <?php endforeach; ?>
@@ -99,5 +96,3 @@
       </div>
     </div>
   </div>
-</div>
-<?php require_once(APPPATH.'views/include/footer.php'); ?>

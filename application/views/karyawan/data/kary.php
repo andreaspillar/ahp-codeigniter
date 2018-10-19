@@ -41,17 +41,17 @@
               <?php if ($qar->absen != 0){ ?>
                 <td class="bg-success" ><a href="#" id="hasilK<?php echo $qar->id_karyawan ?>">Sudah Dinilai</a></td>
                 <td>
-                  <a class="btn-fill btn-warning btn btn-block" href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
-                  <a class="btn btn-fill btn-danger btn-block" href="" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
+                  <a class="btn-fill btn-warning btn btn-block btUB" data-href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
+                  <a class="btn btn-fill btn-danger btn-block" href="<?php echo site_url('welcome/delKary/'.$qar->id_karyawan); ?>" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
                 </td>
               <?php } else{ ?>
                 <td class="bg-danger" >Belum Dinilai</td>
                 <td hidden><?php echo $qar->tanggal_masuk; ?></td>
                 <td hidden><?php echo $qar->pendidikan; ?></td>
                 <td>
-                  <a class="btn-fill btn-warning btn btn-block" href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
-                  <a class="btn btn-fill btn-danger btn-block" href="" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
-                  <a class="btn btn-block btn-fill btn-success" href="<?php echo site_url('welcome/rksen/'.base64_encode($qar->no_karyawan)); ?>" title="Nilai Absen Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai Absen</a>
+                  <a class="btn-fill btn-warning btn btn-block btUB" data-href="<?php echo site_url('welcome/chperson_pg/'.base64_encode($qar->id_karyawan)); ?>" title="Ubah Data Karyawan" type="button"><i class="pe-7s-config"></i> Ubah</a>
+                  <a class="btn btn-fill btn-danger btn-block" href="<?php echo site_url('welcome/delKary/'.$qar->id_karyawan); ?>" title="Hapus Data Karyawan" type="button"><i class="pe-7s-close"></i> Hapus</a>
+                  <a class="btn btn-block btn-fill btn-success btUB" data-href="<?php echo site_url('welcome/rksen/'.base64_encode($qar->no_karyawan)); ?>" title="Nilai Absen Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai Absen</a>
                 </td>
               <?php } ?>
             </tr>
@@ -91,7 +91,9 @@
                 <?php endforeach; ?>
               </td>
               <td colspan="2">
-                <a class="btn btn-info btn-fill btn-block" id="" href="<?php echo site_url('welcome/rank/'.base64_encode($qar->id_karyawan)) ?>">Ubah</a>
+                <!-- <a class="btn btn-info btn-fill btn-block btUB" href="<?php echo site_url('welcome/rank/'.base64_encode($qar->id_karyawan)) ?>" data-toggle="modal" data-target="#ubahModal">Ubah</a> -->
+                <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('welcome/rank/'.base64_encode($qar->id_karyawan)) ?>" >Ubah</a>
+                <!-- <a class="btn btn-info btn-fill btn-block " >Ubah</a> -->
               </td>
             </tr>
           <?php }
@@ -114,4 +116,13 @@
     });
     <?php endforeach; ?>
   });
+</script>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".btUB").click(function(){
+    var link = $(this).data("href");
+    $('#ubahModal').modal("show");
+    $("#ubahModal .modal-body").load(link);
+  });
+});
 </script>

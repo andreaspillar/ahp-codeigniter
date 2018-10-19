@@ -23,6 +23,7 @@ var fixedTop = false;
 var navbar_initialized = false;
 
 $(document).ready(function(){
+    $('.modal').appendTo("body");
     window_width = $(window).width();
 
     // check if there is an image set for the sidebar's background

@@ -1,7 +1,3 @@
-<?php
- 	require_once(APPPATH.'views/include/header.php');
-?>
-<div class="col-md-12">
   <div class="card">
     <div class="card card-plain">
       <?php foreach($ubah as $idK){
@@ -104,8 +100,6 @@
           });
           </script>
       </div>
+    <?php } ?>
     </div>
   </div>
-</div>
-<?php } ?>
-<?php require_once(APPPATH.'views/include/footer.php'); ?>

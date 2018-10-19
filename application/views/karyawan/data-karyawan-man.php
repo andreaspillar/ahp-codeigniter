@@ -65,6 +65,7 @@
     </div>
     <script type="text/javascript">
     $(document).ready(function(){
+      $('#clk').load("<?php echo site_url('HR/dataK'); ?>");
       $('.btnsend').click(function(event){
         event.preventDefault();
         var sk = $('.sorkar').val(); //Jbatan

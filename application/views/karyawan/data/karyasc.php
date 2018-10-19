@@ -26,15 +26,15 @@
               <td><?php echo $qar->jabatan; ?></td>
               <td><?php echo $qar->divisi; ?></td>
               <?php if ($qar->nilai != 0){ ?>
-                <td class="bg-success" >Sudah Dinilai</td>
+                <td colspan="2" class="bg-success" >Sudah Dinilai</td>
               <?php } else{ ?>
                 <td class="bg-danger" >Belum Dinilai</td>
+                <td hidden><?php echo $qar->tanggal_masuk; ?></td>
+                <td hidden><?php echo $qar->pendidikan; ?></td>
+                <td>
+                  <a class="btn btn-block btn-fill btn-primary btUB" data-href="<?php echo site_url('assessors/rank/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button" ><i class="pe-7s-graph1"></i> Nilai</a>
+                </td>
               <?php } ?>
-              <td hidden><?php echo $qar->tanggal_masuk; ?></td>
-              <td hidden><?php echo $qar->pendidikan; ?></td>
-              <td>
-                <a class="btn btn-block btn-fill btn-primary" href="<?php echo site_url('assessors/rank/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button"><i class="pe-7s-graph1"></i> Nilai</a>
-              </td>
             </tr>
           <?php }
         }
@@ -47,3 +47,12 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".btUB").click(function(){
+    var link = $(this).data("href");
+    $('#ubahModal').modal("show");
+    $("#ubahModal .modal-body").load(link);
+  });
+});
+</script>

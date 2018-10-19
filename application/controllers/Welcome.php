@@ -70,13 +70,13 @@ class Welcome extends Login {
 		$data['ubah']=$this->Manager->get_id($absen);
 		$this->load->view('karyawan/ubah-karyawan',$data);
 	}
-	public function rank($value) //NILAI PER KARYAWAN
+	public function rank($value) //absen PER KARYAWAN
 	{
 		$val2 = base64_decode($value);
 		$data['nilK']=$this->Manager->get_id($val2);
 		$this->load->view('karyawan/absen/absen-edit',$data);
 	}
-	public function rksen($value) //Absen PER karyawan
+	public function rksen($value) //Absen edit PER karyawan
 	{
 		$absen = base64_decode($value);
 		$data['nilK']=$this->Manager->get_no($absen);
@@ -438,9 +438,9 @@ class Welcome extends Login {
 		$insert = $this->Users->insertUsers($data);
 		redirect('welcome/shw_user');
 	}
-	public function delKrit($idKr)
+	public function delKary($idKr)
 	{
-		$this->Kriteria->delKrit($idKr);
-		redirect('welcome/index');
+		$this->Manager->delKary($idKr);
+		redirect('welcome/page3');
 	}
 }

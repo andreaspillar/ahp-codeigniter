@@ -18,7 +18,8 @@
               </tr>
               <tr>
                 <td><label class="control-label" for="jabatan">Jabatan</label></td>
-                <td><select id="jabatan" class="form-control jabatan" name="jabatan">
+                <td><select required id="jabatan" class="form-control jabatan" name="jabatan">
+                  <option value="" selected disabled>--</option>
                   <?php
                   $table = 'jabatan';
                   $othtab = 'bagian_divisi';
@@ -33,7 +34,8 @@
             </tr>
             <tr>
               <td><label class="control-label" for="divisi">Bagian</label></td>
-              <td><select class="form-control divisi" id="divisi" name="divisi">
+              <td><select required class="form-control divisi" id="divisi" name="divisi">
+                <option value="" selected disabled>--</option>
                 <?php
                 $this->db->from($othtab);
                 $query=$this->db->get();

@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
-        <form class="" action="<?php echo site_url('HR/updNiQa'); ?>" method="post">
+        <form class="" action="<?php echo site_url('HR/updNiQaku'); ?>" method="post">
           <table class="table table-hover table-striped">
             <?php foreach ($nilK as $a){
               $ra = $a->id_karyawan;
@@ -27,7 +27,7 @@
               $query=$this->db->get();
               $dQ=$query->result();
               ?>
-              <?php foreach ($dQ as $b){
+              <?php foreach ($listNil as $b){
                 // $xpc = explode("C",$b->id_kriteria);
                 $rc = $b->id_kriteria;
                 ?>
@@ -122,7 +122,7 @@
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
-        <form class="" action="<?php echo site_url('PU/updNiQa'); ?>" method="post">
+        <form class="" action="<?php echo site_url('PU/updNiQaku'); ?>" method="post">
           <table class="table table-hover table-striped">
             <?php foreach ($nilK as $a){
               $ra = $a->id_karyawan;
@@ -147,7 +147,7 @@
               $query=$this->db->get();
               $dQ=$query->result();
               ?>
-              <?php foreach ($dQ as $b){
+              <?php foreach ($listNil as $b){
                 // $xpc = explode("C",$b->id_kriteria);
                 $rc = $b->id_kriteria;
                 ?>

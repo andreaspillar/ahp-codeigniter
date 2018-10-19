@@ -15,7 +15,7 @@
           <table class="table table-hover table-striped">
             <tr>
               <td class="col-md-3"><label class="control-label" for="id_kriteria">ID Kriteria</label></td>
-              <td class="col-md-6"><input class="form-control" type="text" id="id_kriteria" name="id_kriteria" value="<?php echo $rename ?>" readonly></td>
+              <td class="col-md-6"><input class="form-control" type="text" id="id_kriteria" name="id_kriteria" value="<?php echo $rename ?>" readonly="readonly"></td>
             </tr>
             <tr>
               <td class="col-md-3"><label class="control-label" for="nama_kriteria">Nama Kriteria</label></td>

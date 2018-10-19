@@ -82,7 +82,7 @@
           <?php endforeach; ?>
         </td>
         <td>
-          <a class="btn btn-info btn-fill" id="" href="<?php echo site_url('HR/rank/'.$qar->id_karyawan) ?>">Ubah</a>
+          <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('HR/rank/'.$qar->id_karyawan) ?>" >Ubah</a>
         </td>
       </tr>
     <?php }
@@ -207,6 +207,15 @@
   });
 </script>
 <?php endif; ?>
+<script type="text/javascript">
+$(document).ready(function(){
+  $(".btUB").click(function(){
+    var link = $(this).data("href");
+    $('#ubahModal').modal("show");
+    $("#ubahModal .modal-body").load(link);
+  });
+});
+</script>
 <script type="text/javascript">
 demo = {
 showReset: function(from, align){

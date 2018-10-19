@@ -49,8 +49,8 @@ class manager extends CI_Model{
 	}
 	public function get_by_jonly($uniqJ)
 	{
-		$this->db->from($this->table);
 		$this->db->where('jabatan',$uniqJ);
+		$this->db->from($this->table);
 		$this->db->order_by('final_total','DESC');
 		$fire = $this->db->get();
 		if ($fire->result()==0) {
@@ -126,8 +126,8 @@ class manager extends CI_Model{
 
 	public function get_id($id)
 	{
-		$this->db->from($this->table);
 		$this->db->where('id_karyawan',$id);
+		$this->db->from($this->table);
 		$query = $this->db->get();
 		return $query->result();
 	}
@@ -158,11 +158,6 @@ class manager extends CI_Model{
 		$this->db->update($this->table, $data, $where);
 		return $this->db->affected_rows();
 	}
-	public function delete_id($id)
-	{
-		$this->db->where('id_karyawan', $id);
-		$this->db->delete($this->table);
-	}
 	public function insertKaryawan($data)
 	{
 		$this->db->insert($this->table,$data);
@@ -173,6 +168,16 @@ class manager extends CI_Model{
 		$this->db->update($this->table, $data);
 		$this->db->empty_table('absen_karyawan');
 		$this->db->empty_table('detail_karyawan');
+		return $this->db->affected_rows();
+	}
+	public function delKary($where)
+	{
+		$this->db->where('id_karyawan',$where);
+		$this->db->delete($this->table);
+		$this->db->where('id_karyawan',$where);
+		$this->db->delete('detail_karyawan');
+		$this->db->where('id_karyawan',$where);
+		$this->db->delete('absen_karyawan');
 		return $this->db->affected_rows();
 	}
 }
