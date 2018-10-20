@@ -1,5 +1,11 @@
+<form action="<?php echo base_url('HR/updateNiFi'); ?>" method="post">
 <div id="clm" class="card card-plain canvas_div_pdf">
   <div class="content table-responsive table-full-width">
+    <table class="table table-hover table-striped">
+    <tr>
+      <td><input type="submit" class="btn btn-fill btn-info" name="" value="Simpan Ke Database" onmouseover="demo.showNotification('top','center')"></td>
+    </tr>
+  </table>
     <?php foreach ($raK as $rK):
       $mainkt = explode("C",$rK->id_kriteria);
       $mkt = $rK->id_kriteria;
@@ -142,7 +148,6 @@
   $query=$this->db->get();
   $fiRes=$query->result();
   ?>
-    <form action="<?php echo base_url('HR/updateNiFi'); ?>" method="post">
       <div id="realprint" class="card card-plain canvas_div_pdf">
         <div class="header">
           <h4 class="title">Tabel Hasil</h4>
@@ -172,12 +177,14 @@
               });
               </script>
             <?php endforeach; ?>
-            <tr>
-              <td><input type="submit" class="btn btn-fill btn-info" name="" value="Simpan Ke Database" onmouseover="demo.showNotification('bottom','center')"></td>
-            </tr>
           </tbody>
         </table>
+        <table class="table table-hover table-striped">
+        <tr>
+          <td><input type="submit" class="btn btn-fill btn-info" name="" value="Simpan Ke Database" onmouseover="demo.showNotification('bottom','center')"></td>
+        </tr>
+      </table>
       </div>
-    </form>
   </div>
 </div>
+</form>

@@ -33,10 +33,8 @@ class Welcome extends Login {
 	}
 	public function tests()
 	{
-		$a = base64_encode('05781623');
-		echo $a;
-		$b = base64_decode('MDU3ODE2MjM=');
-		echo "<br>".$b;
+		$ip=$this->input->ip_address();
+		echo $ip;
 	}
 
 
@@ -374,6 +372,8 @@ class Welcome extends Login {
 		$di = $this->input->post('divisi');
 		$tgm = $this->input->post('tanggal_masuk');
 		$pnd = $this->input->post('pendidikan');
+		$ip_acs = $this->input->ip_address();
+		$cb = $this->session->userdata('logged')['username'];
 		$nil = 0;
 		$data = array(
 			'id_karyawan' => $id,
@@ -387,6 +387,8 @@ class Welcome extends Login {
 			'tanggal_masuk' => $tgm,
 			'pendidikan' => $pnd,
 			'nilai' => $nil,
+			'ip_access' => $ip_acs,
+			'created_by' => $cb,
 		 );
 		 $insert=$this->Manager->insertKaryawan($data);
 		 redirect('welcome/page3');

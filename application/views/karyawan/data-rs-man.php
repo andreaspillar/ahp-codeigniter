@@ -16,7 +16,7 @@
                 <label for="sorkar">Pilih Jabatan</label>
                 <select class="form-control sorkar" id="sorkar">
                   <option value="" disabled selected>Pilih Jabatan</option>
-                  <?php if ($this->session->userdata('logged')['level']==='2'){ ?>
+                  <?php if ($this->session->userdata('logged')['level']==='1'){ ?>
                     <?php
                     $role = $this->session->userdata('logged')['level'];
                     $this->db->from('jabatan');

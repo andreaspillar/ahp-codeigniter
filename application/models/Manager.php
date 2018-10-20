@@ -173,11 +173,11 @@ class manager extends CI_Model{
 	public function delKary($where)
 	{
 		$this->db->where('id_karyawan',$where);
-		$this->db->delete($this->table);
-		$this->db->where('id_karyawan',$where);
 		$this->db->delete('detail_karyawan');
 		$this->db->where('id_karyawan',$where);
 		$this->db->delete('absen_karyawan');
+		$this->db->where('id_karyawan',$where);
+		$this->db->delete($this->table);
 		return $this->db->affected_rows();
 	}
 }

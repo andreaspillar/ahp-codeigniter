@@ -91,7 +91,7 @@
               <td><input readonly class="form-control TOT" type="text" name="total" value=""></td>
             </tr>
             <tr>
-              <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('PU/karyawanku/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
+              <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('HR/karyawanku/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
                 <button class="btn btn-fill btn-info" type="submit">Nilai Karyawan</button></td>
               </tr>
             <?php } ?>
@@ -211,7 +211,7 @@
               <td><input readonly class="form-control TOT" type="text" name="total" value=""></td>
             </tr>
             <tr>
-              <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('PU/karyawanku/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
+              <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('assessors/karyawanku/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
                 <button class="btn btn-fill btn-info" type="submit">Nilai Karyawan</button></td>
               </tr>
             <?php } ?>

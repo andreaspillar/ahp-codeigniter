@@ -6,9 +6,9 @@
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
         <div class="header">
-          <h4 class="title">Ubah Prioritas Kriteria Manajer/ Kepala Departemen/ Wakil</h4>
+          <h4 class="title">Ubah Prioritas Kriteria Kepala Shift/ Operator</h4>
         </div>
-        <form class="" action="<?php echo base_url('HR/showTabel'); ?>" method="post">
+        <form class="" action="<?php echo base_url('HR/showTbOp'); ?>" method="post">
           <table class="table table-hover table-striped">
             <thead>
               <tr>
@@ -21,7 +21,7 @@
             <tbody>
             <?php
         //tabel kriteria
-            $this->db->from('kriteria');
+            $this->db->from('kriteria_oper');
             $this->db->order_by('id_kriteria','DESC');
         		$this->db->limit(1);
             $query=$this->db->get();
@@ -36,7 +36,7 @@
                 $jid= ($i);
                 $jo=$jid;
                 $this->db->select('nama_kriteria');
-                $this->db->from('kriteria');
+                $this->db->from('kriteria_oper');
                 $this->db->where('id_kriteria',$jo);
                 $query=$this->db->get();
                 $totab=$query->result();

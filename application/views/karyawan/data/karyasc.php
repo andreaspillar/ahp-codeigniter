@@ -26,7 +26,7 @@
               <td><?php echo $qar->jabatan; ?></td>
               <td><?php echo $qar->divisi; ?></td>
               <?php if ($qar->nilai != 0){ ?>
-                <td colspan="2" class="bg-success" >Sudah Dinilai</td>
+                <td colspan="2" class="bg-success" ><a href="#" id="hasilK<?php echo $qar->id_karyawan ?>">Sudah Dinilai</a></td>
               <?php } else{ ?>
                 <td class="bg-danger" >Belum Dinilai</td>
                 <td hidden><?php echo $qar->tanggal_masuk; ?></td>
@@ -36,6 +36,45 @@
                 </td>
               <?php } ?>
             </tr>
+            <tr id="infonil<?php echo $qar->id_karyawan ?>" hidden>
+              <td colspan="2">
+                <?php
+                $this->db->where('id_karyawan',$qar->id_karyawan);
+                $this->db->from('detail_karyawan');
+                $deta = $this->db->get();
+                $resD = $deta->result();
+                foreach ($resD as $deK): ?>
+                <?php
+                $this->db->where('id_kriteria',$deK->id_kriteria);
+                $this->db->from('kriteria');
+                $kri = $this->db->get();
+                $hasK = $kri->result();
+                foreach ($hasK as $hK): ?>
+                <?php echo $hK->nama_kriteria; ?><br>
+              <?php endforeach; ?>
+              <?php endforeach; ?>
+            </td>
+              <td colspan="3">
+                <?php
+                $this->db->where('id_karyawan',$qar->id_karyawan);
+                $this->db->from('detail_karyawan');
+                $deta = $this->db->get();
+                $resD = $deta->result();
+                foreach ($resD as $deK): ?>
+                <?php
+                $this->db->where('id_kriteria',$deK->id_kriteria);
+                $this->db->from('kriteria');
+                $kri = $this->db->get();
+                $hasK = $kri->result();
+                foreach ($hasK as $hK): ?>
+                <?php echo $deK->nilai_kriteria; ?><br>
+                <?php endforeach; ?>
+                <?php endforeach; ?>
+            </td>
+            <td>
+              <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('assessors/rankn/'.$qar->id_karyawan) ?>" >Ubah</a>
+            </td>
+          </tr>
           <?php }
         }
           else {?>
@@ -47,6 +86,16 @@
     </table>
   </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function(){
+    <?php foreach ($karyawan as $b): ?>
+      $("#hasilK<?php echo $b->id_karyawan; ?>").click(function(event){
+        event.preventDefault();
+        $("#infonil<?php echo $b->id_karyawan; ?>").toggle();
+      });
+    <?php endforeach; ?>
+  });
+</script>
 <script type="text/javascript">
 $(document).ready(function(){
   $(".btUB").click(function(){

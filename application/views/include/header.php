@@ -97,15 +97,45 @@ header("location: login");
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('HR/page2');?>" role="button">
+								<a href="#" class="showH" role="button">
 									<i class="pe-7s-edit"></i>
 									<p>Prioritas Kriteria</p>
 								</a>
 							</li>
+							<li id="buttonpr1">
+								<a href="<?php echo site_url('HR/page2');?>" role="button">
+									<p>Kriteria Manajer/ Kabag</p>
+								</a>
+							</li>
+							<li id="buttonpr2" >
+								<a href="<?php echo site_url('HR/page2_kb');?>" role="button">
+									<p>Kriteria Kabid/ Staff/ Pengawas</p>
+								</a>
+							</li>
+							<li id="buttonpr3" >
+								<a href="<?php echo site_url('HR/page2_op');?>" role="button">
+									<p>Kriteria Kepala Shift/ Operator</p>
+								</a>
+							</li>
 							<li>
-								<a href="<?php echo site_url('HR/tabelAnalisa');?>" role="button">
+								<a href="#" class="aKrit" role="button">
 									<i class="pe-7s-graph1"></i>
 									<p>Analisa Kriteria	</p>
+								</a>
+							</li>
+							<li id="ak1" hidden>
+								<a href="<?php echo site_url('HR/tabelAnalisa');?>" role="button">
+									<p>Manajer/ Kabag</p>
+								</a>
+							</li>
+							<li id="ak2" hidden>
+								<a href="<?php echo site_url('HR/tabelAnalisaKb');?>" role="button">
+									<p>Kabid/ Staff/ Karyawan</p>
+								</a>
+							</li>
+							<li id="ak3" hidden>
+								<a href="<?php echo site_url('HR/tabelAnalisaOp');?>" role="button">
+									<p>Kepala Shift/ Operator</p>
 								</a>
 							</li>
 							<li>
@@ -139,6 +169,28 @@ header("location: login");
 								</a>
 							</li>
 						</ul>
+						<script type="text/javascript">
+						$(document).ready(function(){
+								$("#buttonpr1").hide();
+								$("#buttonpr2").hide();
+								$("#buttonpr3").hide();
+								$("#ak1").hide();
+								$("#ak2").hide();
+								$("#ak3").hide();
+							$(".showH").click(function(event){
+								event.preventDefault();
+								$("#buttonpr1").toggle();
+								$("#buttonpr2").toggle();
+								$("#buttonpr3").toggle();
+							});
+							$(".aKrit").click(function(event){
+								event.preventDefault();
+								$("#ak1").toggle();
+								$("#ak2").toggle();
+								$("#ak3").toggle();
+							});
+						});
+						</script>
 					<?php elseif($lvls==='2'||$lvls==='1'): ?>
 						<div class="sidebar" data-color="azure" data-image="assets/img/sidebar-5.jpg">
 							<div class="sidebar-wrapper">

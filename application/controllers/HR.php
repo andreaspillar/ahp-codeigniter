@@ -12,8 +12,12 @@ class HR extends Login {
 		$this->load->library('session');
 		$this->load->Model('Manager');
 		$this->load->Model('Kriteria');
+		$this->load->Model('KriteriaB');
+		$this->load->Model('KriteriaO');
 		$this->load->Model('Nilai');
 		$this->load->Model('Ankrit');
+		$this->load->Model('AKKB');
+		$this->load->Model('AKOP');
 		$this->load->Model('Anab');
 		$this->load->Model('Detkar');
 		$this->load->Model('Abkar');
@@ -38,10 +42,25 @@ class HR extends Login {
 		$data2['data_kriteria']=$this->Kriteria->get_data();
 		$this->load->view('nilai-kriteria/read-nilai',$data2);
 	}
+	public function page2_kb()
+	{
+		$data2['data_kriteria']=$this->KriteriaB->get_data();
+		$this->load->view('nilai-kriteria/read-kriteria-b',$data2);
+	}
+	public function page2_op()
+	{
+		$data2['data_kriteria']=$this->KriteriaO->get_data();
+		$this->load->view('nilai-kriteria/read-kriteria-o',$data2);
+	}
 	public function page3()
 	{
 		$this->load->view('karyawan/data-karyawan-man.php');
 	}
+	public function plusid()
+	{
+		$this->load->view('kriteria/baru-kriteria');
+	}
+
 	public function addkrit_pg()
 	{
 		$data['data']=$this->Kriteria->getIDBaru();
@@ -93,11 +112,23 @@ class HR extends Login {
 	{
 		$this->load->view('karyawan/final-karyawan');
 	}
+// showTBAn
 	public function tabelAnalisa()
 	{
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
+	public function tabelAnalisaKb()
+	{
+		$datb['tabel'] = $this->AKKB->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+	}
+	public function tabelAnalisaOp()
+	{
+		$datb['tabel'] = $this->AKOP->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+	}
+// showTBAb
 	public function tabelAbsen()
 	{
 		$datb['tabel'] = $this->Anab->get_data();
@@ -118,7 +149,7 @@ class HR extends Login {
 	//ranking-karyawan
 	public function shw()
 	{
-		$data['raK']=$this->Kriteria->get_data();
+		$data['raK']=$this->KriteriaO->get_data();
 		$this->load->view('karyawan/persons/kary',$data);
 	}
 	public function man()
@@ -128,22 +159,22 @@ class HR extends Login {
 	}
 	public function kbid()
 	{
-		$data['raK']=$this->Kriteria->get_data();
+		$data['raK']=$this->KriteriaB->get_data();
 		$this->load->view('karyawan/persons/kabid',$data);
 	}
 	public function pengawas()
 	{
-		$data['raK']=$this->Kriteria->get_data();
+		$data['raK']=$this->KriteriaB->get_data();
 		$this->load->view('karyawan/persons/pengawas',$data);
 	}
 	public function staff()
 	{
-		$data['raK']=$this->Kriteria->get_data();
+		$data['raK']=$this->KriteriaB->get_data();
 		$this->load->view('karyawan/persons/staff',$data);
 	}
 	public function kshift()
 	{
-		$data['raK']=$this->Kriteria->get_data();
+		$data['raK']=$this->KriteriaO->get_data();
 		$this->load->view('karyawan/persons/kshift',$data);
 	}
 
@@ -264,6 +295,7 @@ class HR extends Login {
 		redirect('HR/karyawanku');
 	}
 
+// updateNIKR
 	public function updateNiKr()
 	{
 		$idkr = $_POST['id_kriteria'];
@@ -277,7 +309,35 @@ class HR extends Login {
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
+	public function updateNiKrB()
+	{
+		$idkr = $_POST['id_kriteria'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_kriteria' => $nakr[$ide],
+			);
+			$this->KriteriaB->updateKrit(array('id_kriteria'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->AKKB->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+	}
+	public function updateNiKrO()
+	{
+		$idkr = $_POST['id_kriteria'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_kriteria' => $nakr[$ide],
+			);
+			$this->KriteriaO->updateKrit(array('id_kriteria'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->AKOP->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+	}
+// end updateNIKR
 
+// tabelKRIT
 	public function showTabel()
 	{
 		$cleT = $this->Ankrit->clearTB();
@@ -295,6 +355,41 @@ class HR extends Login {
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
+	public function showTbKbid()
+	{
+		$cleT = $this->AKKB->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'kriteria_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'kriteria_y'=>$crib[$key]
+			);
+			$insert = $this->AKKB->insertArray($data);
+		}
+		$datb['tabel'] = $this->AKKB->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+	}
+	public function showTbOp()
+	{
+		$cleT = $this->AKOP->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'kriteria_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'kriteria_y'=>$crib[$key]
+			);
+			$insert = $this->AKOP->insertArray($data);
+		}
+		$datb['tabel'] = $this->AKOP->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+	}
+// end tabelKRIT
 
 	public function insertKriteria()
 	{
@@ -307,6 +402,8 @@ class HR extends Login {
 			'jumlah_kriteria' => $harga,
 		 	);
 		$insert=$this->Kriteria->insertKriteria($data);
+		$insert=$this->KriteriaB->insertKriteria($data);
+		$insert=$this->KriteriaO->insertKriteria($data);
 		redirect('HR/index');
 	}
 	public function updateUSR()
