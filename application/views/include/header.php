@@ -53,7 +53,7 @@ header("location: login");
 							<li>
 								<a href="<?php echo site_url('welcome/index');?>" role="button">
 									<i class="pe-7s-note2"></i>
-									<p>Absen (Kriteria)</p>
+									<p>Absen (Indikator)</p>
 								</a>
 							</li>
 							<li>
@@ -93,34 +93,34 @@ header("location: login");
 							<li>
 								<a href="<?php echo site_url('HR/index');?>" role="button">
 									<i class="pe-7s-note2"></i>
-									<p>Kriteria</p>
+									<p>Indikator</p>
 								</a>
 							</li>
 							<li>
 								<a href="#" class="showH" role="button">
 									<i class="pe-7s-edit"></i>
-									<p>Prioritas Kriteria</p>
+									<p>Prioritas Indikator</p>
 								</a>
 							</li>
 							<li id="buttonpr1">
 								<a href="<?php echo site_url('HR/page2');?>" role="button">
-									<p>Kriteria Manajer/ Kabag</p>
+									<p>Indikator Manajer/ Kabag</p>
 								</a>
 							</li>
 							<li id="buttonpr2" >
 								<a href="<?php echo site_url('HR/page2_kb');?>" role="button">
-									<p>Kriteria Kabid/ Staff/ Pengawas</p>
+									<p>Indikator Kabid/ Staff/ Pengawas</p>
 								</a>
 							</li>
 							<li id="buttonpr3" >
 								<a href="<?php echo site_url('HR/page2_op');?>" role="button">
-									<p>Kriteria Kepala Shift/ Operator</p>
+									<p>Indikator Kepala Shift/ Operator</p>
 								</a>
 							</li>
 							<li>
 								<a href="#" class="aKrit" role="button">
 									<i class="pe-7s-graph1"></i>
-									<p>Analisa Kriteria	</p>
+									<p>Analisa Indikator	</p>
 								</a>
 							</li>
 							<li id="ak1" hidden>

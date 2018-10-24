@@ -116,9 +116,19 @@ function getPDF(){
  };
  function printData()
 {
-   var divToPrint=document.getElementById("clm");
-   newWin= window.open("");
-   newWin.document.write(divToPrint.outerHTML);
+  var divToPrint=document.getElementById("printTAB");
+  var htmlToPrint = '' +
+        '<style type="text/css">' +
+        'table th, table td {' +
+        'border:1px solid #000;' +
+        '}' +
+        'table {' +
+        'border:1px solid #000;' +
+        '}' +
+        '</style>';
+   htmlToPrint += divToPrint.outerHTML;
+   newWin = window.open("");
+   newWin.document.write(htmlToPrint);
    newWin.print();
    newWin.close();
 };

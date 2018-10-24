@@ -59,12 +59,13 @@ class PU extends Login {
 		$idJ =  $this->uri->segment(3);
   	$idD =  $this->uri->segment(4);
 		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/ranking/kary',$data);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
 	}
 	public function rkj($idJ)
 	{
 		$data['finKa']=$this->Manager->get_by_jonly($idJ);
 		$this->load->view('karyawan/ranking/kary',$data);
+		// $this->load->view('karyawan/ranking/kary');
 	}
 	public function dataK()
 	{

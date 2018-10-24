@@ -9,15 +9,15 @@
           <form action="<?php echo site_url('HR/updateKriteria'); ?>" method="post">
             <?php foreach ($ubah as $ub){ ?>
               <div class="header">
-                <h4 class="title">Ubah Kriteria <?php echo $ub->nama_kriteria; ?></h4>
+                <h4 class="title">Ubah Indikator <?php echo $ub->nama_kriteria; ?></h4>
               </div>
               <table class="table table-hover table-striped">
                 <tr>
-                  <td><label class="control-label" for="id_kriteria">ID Kriteria</label></td>
+                  <td><label class="control-label" for="id_kriteria">ID Indikator</label></td>
                   <td><input class="form-control" id="id_kriteria" name="id_kriteria" type="text" value="<?php echo $ub->id_kriteria; ?>" readonly></td>
                 </tr>
                 <tr>
-                  <td><label class="control-label" for="id_kriteria">Nama Kriteria</label></td>
+                  <td><label class="control-label" for="id_kriteria">Nama Indikator</label></td>
                   <td><input class="form-control" id="id_kriteria" name="nama_kriteria" type="text" value="<?php echo $ub->nama_kriteria; ?>"></td>
                 </tr>
                 <tr>

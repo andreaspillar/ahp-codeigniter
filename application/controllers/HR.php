@@ -249,6 +249,8 @@ class HR extends Login {
 			'ket_nil5' => $bs,
 		 );
 		$update=$this->Kriteria->updateKrit(array('id_kriteria'=>$idKr),$data);
+		$updateB=$this->KriteriaB->updateKrit(array('id_kriteria'=>$idKr),$data);
+		$updateO=$this->KriteriaO->updateKrit(array('id_kriteria'=>$idKr),$data);
 		redirect('HR/index');
 	}
 	public function updNiQa()
@@ -411,11 +413,12 @@ class HR extends Login {
 		$idU = $this->input->post('id_user');
 		$id = $this->input->post('username');
 		$psw = $this->input->post('password');
+		$hasap = hash('sha256', 'hu8945iot7gdreoi'.$psw.'94085ire8562ue');
 		$jbt = $this->input->post('jabatan');
 		$dvs = $this->input->post('divisi');
 		$data = array(
 			'username' => $id,
-			'password' => $psw,
+			'password' => $hasap,
 			'divisi' => $dvs,
 			'levels' => $jbt,
 		 );
@@ -427,9 +430,10 @@ class HR extends Login {
 		$idU = $this->input->post('id_user');
 		$id = $this->input->post('username');
 		$psw = $this->input->post('password');
+		$hasap = hash('sha256', 'hu8945iot7gdreoi'.$psw.'94085ire8562ue');
 		$data = array(
 			'username' => $id,
-			'password' => $psw,
+			'password' => $hasap,
 		 );
 		 $update=$this->Users->updateMan(array('id_user'=>$idU),$data);
 		 redirect('HR/shw_user');
@@ -438,11 +442,12 @@ class HR extends Login {
 	{
 		$adus = $this->input->post('username');
 		$adpa = $this->input->post('password');
+		$hasap = hash('sha256', 'hu8945iot7gdreoi'.$adpa.'94085ire8562ue');
 		$adja = $this->input->post('jabatan');
 		$addi = $this->input->post('divisi');
 		$data = array(
 				'username'=>$adus,
-				'password'=>$adpa,
+				'password'=>$hasap,
 				'levels'=>$adja,
 				'divisi'=>$addi
 		);

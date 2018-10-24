@@ -58,6 +58,15 @@
     </div>
     <script type="text/javascript">
     $(document).ready(function(){
+      <?php if ($this->session->userdata('logged')['level']==='1'): ?>
+      <?php foreach ($jab as $J): ?>
+        $('#clk').load("<?php echo site_url('HR/karyawanJ/'.$J->unique_jabatan); ?>");
+      <?php endforeach; ?>
+      <?php elseif($this->session->userdata('logged')['level']==='-1'): ?>
+      <?php foreach ($jab as $J): ?>
+        $('#clk').load("<?php echo site_url('PU/karyawanJ/'.$J->unique_jabatan); ?>");
+      <?php endforeach; ?>
+      <?php endif; ?>
       $('.btnsend').click(function(event){
         event.preventDefault();
         var sk = $('.sorkar').val(); //Jbatan

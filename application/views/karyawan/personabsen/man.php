@@ -176,10 +176,11 @@
                   sumC += parseFloat($(this).text());
                 });
                 $('#finRes<?php echo $fR->id_karyawan; ?>').val(sumC.toFixed(3));
-                var setengah = 0.5;
+                var var1 = 0.6;
+                var var2 = 0.4;
                 var tK = parseFloat($('.totK<?php echo $fR->id_karyawan ?>').val());
                 var tA = parseFloat($('.totA<?php echo $fR->id_karyawan ?>').val());
-                var sums = (tK*setengah)+(tA*setengah);
+                var sums = (tK*var1)+(tA*var2);
                 $('#totalFin<?php echo $fR->id_karyawan; ?>').val(sums.toFixed(3));
               });
               </script>

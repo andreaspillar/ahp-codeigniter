@@ -8,11 +8,11 @@
           <form action="<?php echo site_url('HR/insertKriteria')?>" method="post">
           <table class="table table-hover table-striped">
             <tr>
-              <td class="col-md-3"><label class="control-label" for="id_kriteria">ID Kriteria</label></td>
+              <td class="col-md-3"><label class="control-label" for="id_kriteria">ID Indikator</label></td>
               <td class="col-md-6"><input class="form-control" type="text" id="id_kriteria" name="id_kriteria" value="1" readonly="readonly"></td>
             </tr>
             <tr>
-              <td class="col-md-3"><label class="control-label" for="nama_kriteria">Nama Kriteria</label></td>
+              <td class="col-md-3"><label class="control-label" for="nama_kriteria">Nama Indikator</label></td>
               <td class="col-md-6"><input class="form-control" type="text" id="nama_kriteria" name="nama_kriteria" value=""></td>
             </tr>
             <tr>

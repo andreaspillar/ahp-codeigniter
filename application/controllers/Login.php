@@ -22,7 +22,9 @@ class Login extends CI_Controller {
   {
     $username = $this->input->post('username',TRUE);
     $password = $this->input->post('password',TRUE);
-    $validate = $this->Users->validate($username,$password);
+    $hash = hash('sha256','hu8945iot7gdreoi'.$password.'94085ire8562ue');
+    // $validate = $this->Users->validate($username,$password);
+    $validate = $this->Users->validate($username,$hash);
     if($validate->num_rows() > 0){
         $data  = $validate->row_array();
         $uid   = $data['id_user'];
@@ -54,11 +56,13 @@ class Login extends CI_Controller {
           redirect('PU');
         }
 				else{
-          redirect('page/staff');
+          redirect('Error');
         }
 				return $level;
     }else{
-        redirect('login');
+				$msg = "Username atau Password yang diberikan mungkin salah";
+				$this->session->set_flashdata('msg', $msg);
+        redirect('login/index');
     }
   }
 	public function out(){

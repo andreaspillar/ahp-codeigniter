@@ -27,9 +27,13 @@ class Welcome extends Login {
 		}
 	}
 
-	public function testPHP()
+	public function about()
 	{
 		phpinfo();
+	}
+	public function test()
+	{
+		echo hash('sha256','hu8945iot7gdreoiadminhr94085ire8562ue');
 	}
 	public function tests()
 	{
