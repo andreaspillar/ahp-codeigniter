@@ -37,16 +37,13 @@
                   </td>
                   <td>
                     <select class="form-control calculate" name="KR[<?php echo $rc; ?>]" id="<?php echo $b->id_kriteria; ?>" required>
+                      <option value="" disabled selected>Nilai Kirteria</option>
                       <?php
                       $this->db->from('nilai_karyawan');
                       $q=$this->db->get();
                       $resUL=$q->result();
                       foreach ($resUL as $key): ?>
-                      <?php if ($b->nilai_kriteria==$key->valu_nilK): ?>
-                        <option value="<?php echo $key->valu_nilK; ?>" selected><?php echo $key->krit_nilK; ?></option>
-                      <?php else: ?>
                         <option value="<?php echo $key->valu_nilK; ?>"><?php echo $key->krit_nilK; ?></option>
-                      <?php endif; ?>
                     <?php endforeach; ?>
                   </select>
                 </td>

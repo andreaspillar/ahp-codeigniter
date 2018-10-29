@@ -21,10 +21,6 @@
     $rank = 1;
     foreach ($finKa as $fI):
       ?>
-      <?php if ($fI->jabatan=='Manajer'): ?>
-        <?php if ($rank): ?>
-
-        <?php endif; ?>
         <?php if (($fI->final_nilai==0.000000)||($fI->final_absen==0.000000)) { ?>
           <tr>
             <td><?php echo $fI->nama_karyawan; ?></td>
@@ -44,7 +40,6 @@
             <td><?php echo $rank; ?></td>
           </tr>
         <?php } ?>
-      <?php endif; ?>
 
     <?php
       $rank++;

@@ -33,11 +33,6 @@
                   <?php foreach ($jab as $jB): ?>
                     <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
                   <?php endforeach; ?>
-                  <option value="Kabid">Kepala Bidang</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Pengawas">Pengawas</option>
-                  <option value="Kashift">Kepala Shift</option>
-                  <option value="Operator">Operator</option>
                 </select><br>
                 <button class="btn btn-fill btn-info btnsend" type="button" id="btnsend" name="button">Cari</button>&nbsp&nbsp&nbsp
                 <span class="text-danger" id="warn"></span>

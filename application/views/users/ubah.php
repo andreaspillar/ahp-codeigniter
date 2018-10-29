@@ -20,7 +20,7 @@
                   </tr>
                   <tr>
                     <td><label class="control-label">Kata Sandi</label></td>
-                    <td><input class="form-control" type="password" id="password" name="password" value="<?php echo $uu->password ?>"></td>
+                    <td><input class="form-control" type="password" id="password" name="password" value=""></td>
                   </tr>
                   <tr>
                     <td colspan="2"><input type="submit" class="btn btn-fill btn-info" name="" value="Simpan User" onmouseover="demo.showNotification('bottom','center')"></td>
@@ -42,7 +42,7 @@
                   </tr>
                   <tr>
                     <td><label class="control-label">Kata Sandi</label></td>
-                    <td><input class="form-control" type="password" id="password" name="password" value="<?php echo $uu->password ?>"></td>
+                    <td><input class="form-control" type="password" id="password" name="password" value=""></td>
                   </tr>
                   <tr>
                     <td><label class="control-label" for="jabatan">Jabatan</label></td>

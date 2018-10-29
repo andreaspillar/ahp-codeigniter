@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://localhost/ahp/';
+// $config['base_url'] = 'http://10.0.2.2/ahp/';
 
 /*
 |--------------------------------------------------------------------------

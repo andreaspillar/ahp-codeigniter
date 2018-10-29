@@ -30,6 +30,7 @@ class users extends CI_Model{
 	public function get_byL()
 	{
 		$this->db->order_by('levels','ASC');
+		$this->db->order_by('divisi','ASC');
 		$this->db->from($this->table);
 		$query = $this->db->get();
 		if ($query->result() != NULL) {

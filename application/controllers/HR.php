@@ -31,6 +31,49 @@ class HR extends Login {
 		}
 	}
 
+	// testing room
+	public function toJSON()
+	{
+		header('Content-Type: application/json');
+		$datA=$this->Manager->gettenup('Staff');
+		print json_encode($datA);
+	}
+	public function toJSONII()
+	{
+		header('Content-Type: application/json');
+		$datB=$this->Manager->gettenup('Manajer');
+		print json_encode($datB);
+	}
+	public function toJSONIII()
+	{
+		header('Content-Type: application/json');
+		$datC=$this->Manager->gettenup('Kabid');
+		print json_encode($datC);
+	}
+	public function toJSONIV()
+	{
+		header('Content-Type: application/json');
+		$datD=$this->Manager->gettenup('Pengawas');
+		print json_encode($datD);
+	}
+	public function toJSONV()
+	{
+		header('Content-Type: application/json');
+		$datE=$this->Manager->gettenup('Kashift');
+		print json_encode($datE);
+	}
+	public function toJSONVI()
+	{
+		header('Content-Type: application/json');
+		$datF=$this->Manager->gettenup('Operator');
+		print json_encode($datF);
+	}
+	public function viewchart()
+	{
+		$this->load->view('view-chart');
+	}
+	// end testing room
+
 //pindah halaman
 	public function index()
 	{
@@ -92,7 +135,7 @@ class HR extends Login {
 	public function rankn($value)
 	{
 		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-edma',$data);
+		$this->load->view('karyawan/nilai/nilai-karyawan-man',$data);
 	}
 	public function add_user()
 	{
@@ -145,6 +188,12 @@ class HR extends Login {
 		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
 		$this->load->view('karyawan/data/karyascman',$data);
 	}
+	public function karyawanNJ()
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_noMAN($idD);
+		$this->load->view('karyawan/data/karyascman',$data);
+	}
 
 	//ranking-karyawan
 	public function shw()
@@ -185,12 +234,19 @@ class HR extends Login {
 		$idJ =  $this->uri->segment(3);
   	$idD =  $this->uri->segment(4);
 		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/ranking/kary',$data);
+		// $this->load->view('karyawan/ranking/kary-spec',$data);
+		$this->load->view('karyawan/ranking/kary1',$data);
 	}
 	public function rkj($idJ)
 	{
 		$data['finKa']=$this->Manager->get_by_jonly($idJ);
-		$this->load->view('karyawan/ranking/kary',$data);
+		// $this->load->view('karyawan/ranking/kary',$data);
+		$this->load->view('karyawan/ranking/kary1',$data);
+	}
+	public function allRK()
+	{
+		$data['finKa']=$this->Manager->get_try();
+		$this->load->view('karyawan/ranking/kary1',$data);
 	}
 	public function dataK()
 	{

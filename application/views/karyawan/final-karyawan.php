@@ -33,11 +33,6 @@
                   <?php foreach ($jab as $jB): ?>
                     <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
                   <?php endforeach; ?>
-                  <option value="Kabid">Kepala Bidang</option>
-                  <option value="Staff">Staff</option>
-                  <option value="Pengawas">Pengawas</option>
-                  <option value="Kashift">Kepala Shift</option>
-                  <option value="Operator">Operator</option>
                 </select><br>
                 <button class="btn btn-fill btn-info btnsend" type="button" id="btnsend" name="button">Cari</button>&nbsp&nbsp&nbsp
                 <span class="text-danger" id="warn"></span>
@@ -46,7 +41,8 @@
             <div class="col-md-3">
               <div class="form-group">
                 <label>Pilihan Menu</label><br/>
-                <button class="btn btn-info btn-fill btn-block" onclick="getPDF();" onmouseover="demo.showDownload('top','center');" name="button"><i class="pe-7s-diskette"></i>&nbsp&nbsp Unduh Data</button>
+                <button class="btn btn-info btn-fill btn-block" class="" onclick="exportTableToExcel('printTAB', 'ranking-karyawan')"><i class="pe-7s-diskette"></i>&nbsp&nbsp Unduh Data Excel</button>
+                <button class="btn btn-info btn-fill btn-block" onclick="getPDF();" onmouseover="demo.showDownload('top','center');" name="button"><i class="pe-7s-diskette"></i>&nbsp&nbsp Unduh Data PDF</button>
                 <button id="printY" class="btn btn-info btn-fill btn-block" onclick="printData();" onmouseover="demo.showPrint('top','center');" name="button"><i class="pe-7s-print"></i>&nbsp&nbsp Print</button>
               </div>
             </div>
@@ -122,5 +118,38 @@ function getPDF(){
    newWin.print();
    newWin.close();
 };
+</script>
+<!-- print excel -->
+<script type="text/javascript">
+function exportTableToExcel(tableID, filename = ''){
+  var downloadLink;
+  var dataType = 'application/vnd.ms-excel';
+  var tableSelect = document.getElementById(tableID);
+  var tableHTML = tableSelect.outerHTML.replace(/ /g, '%20');
+
+  // Specify file name
+  filename = filename?filename+'.xls':'excel_data.xls';
+
+  // Create download link element
+  downloadLink = document.createElement("a");
+
+  document.body.appendChild(downloadLink);
+
+  if(navigator.msSaveOrOpenBlob){
+      var blob = new Blob(['\ufeff', tableHTML], {
+          type: dataType
+      });
+      navigator.msSaveOrOpenBlob( blob, filename);
+  }else{
+      // Create a link to the file
+      downloadLink.href = 'data:' + dataType + ', ' + tableHTML;
+
+      // Setting the file name
+      downloadLink.download = filename;
+
+      //triggering the function
+      downloadLink.click();
+  }
+}
 </script>
 <?php require_once(APPPATH.'views/include/footer.php'); ?>

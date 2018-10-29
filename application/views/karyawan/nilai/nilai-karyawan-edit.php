@@ -11,7 +11,7 @@
                 <h4 class="title">Nilai <?php echo $a->nama_karyawan; ?></h4>
                 <p class="category"><?php echo $a->jabatan; ?> - <?php echo $a->divisi; ?></p>
               </div>
-              <input hidden type="text" name="idqar" value="<?php echo $a->id_karyawan; ?>">
+              <input hidden type="text" id="idqar" name="idqar" value="<?php echo $a->id_karyawan; ?>">
               <thead>
                 <tr>
                   <th>Kriteria</th><th>Nilai</th>
@@ -32,12 +32,12 @@
                 $rc = $b->id_kriteria;
                 ?>
                 <tr>
-                  <td hidden><input type="text" name="C[<?php echo $rc; ?>]" value="<?php echo $b->id_kriteria; ?>"></td>
+                  <td hidden><input type="text" id="C<?php echo $rc; ?>" name="C[<?php echo $rc; ?>]" value="<?php echo $b->id_kriteria; ?>"></td>
                   <td>
                     <?php echo $b->nama_kriteria; ?>&nbsp&nbsp&nbsp&nbsp<a href="#" id="shwIn<?php echo $rc ?>" onmouseover="demo.showHelp('top','center');" data-toogle="tooltip" data-placement="top" title="Klik Untuk Bantuan Menilai">?</a>
                   </td>
                   <td>
-                    <select class="form-control calculate" name="KR[<?php echo $rc; ?>]" id="<?php echo $b->id_kriteria; ?>" required>
+                    <select class="form-control calculate" name="KR[<?php echo $rc; ?>]" id="KR[<?php echo $b->id_kriteria; ?>]" required>
                       <?php
                       $this->db->from('nilai_karyawan');
                       $q=$this->db->get();
@@ -88,11 +88,11 @@
             </script>
             <tr>
               <td>Total</td>
-              <td><input readonly class="form-control TOT" type="text" name="total" value=""></td>
+              <td><input readonly class="form-control TOT" type="text" name="total" id="total" value=""></td>
             </tr>
             <tr>
               <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('PU/karyawanku/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
-                <button class="btn btn-fill btn-info" type="submit">Nilai Karyawan</button></td>
+                <button class="btn btn-fill btn-info butonSB" type="submit" >Nilai Karyawan</button></td>
               </tr>
             <?php } ?>
           </table>

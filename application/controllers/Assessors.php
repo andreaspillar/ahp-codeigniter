@@ -54,6 +54,18 @@ class Assessors extends Login {
 		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
 		$this->load->view('karyawan/data/karyasc',$data);
 	}
+	public function dataKDMan()
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_noKBID($idD);
+		$this->load->view('karyawan/data/karyasc',$data);
+	}
+	public function dataKDKbid()
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_KBID($idD);
+		$this->load->view('karyawan/data/karyasc',$data);
+	}
 	public function rka($idJ)
 	{
   	$idD =  $this->session->userdata('logged')['divisi'];

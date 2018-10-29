@@ -18,9 +18,10 @@ header("location: login");
 	<meta name="viewport" content="width=device-width" />
 	<title>Home</title>
 	<!-- Scripts -->
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+	<!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script> -->
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.3/jspdf.min.js"></script>
 	<script src="https://html2canvas.hertzen.com/dist/html2canvas.js"></script>
+	<script src="<?php echo base_url('assets/js/jquery.min.js'); ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap.min.js'); ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets/js/light-bootstrap-dashboard.js'); ?>" type="text/javascript"></script>
 	<script src="<?php echo base_url('assets/js/bootstrap-notify.js'); ?>"></script>

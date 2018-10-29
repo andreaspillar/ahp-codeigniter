@@ -22,7 +22,7 @@
        ?>
       <tr>
         <th>Karyawan</th>
-        <?php $couk = count($listKar); ?>
+        <?php $couk = count($listKar);?>
         <?php foreach ($listKar as $lK):
         // $ca = explode("",$lK->id_karyawan);
         $da = $lK->id_karyawan;
