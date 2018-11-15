@@ -165,7 +165,9 @@
               <tr>
                 <td hidden><input type="text" name="idK[<?php echo $fR->id_karyawan ?>]" value="<?php echo $fR->id_karyawan ?>" readonly> </td>
                 <td><?php echo $fR->nama_karyawan ?></td>
-                <td><input class="form-control" id="finRes<?php echo $fR->id_karyawan; ?>" type="text" name="totalakhir[<?php echo $fR->id_karyawan; ?>]" value="" readonly> </td>
+                <td ><input hidden class="form-control totA<?php echo $fR->id_karyawan ?>" type="text" name="" value="<?php echo $fR->final_absen; ?>" readonly></td>
+                <td><input class="form-control totK<?php echo $fR->id_karyawan ?>" id="finRes<?php echo $fR->id_karyawan; ?>" type="text" name="totalkriteria[<?php echo $fR->id_karyawan; ?>]" value="" readonly> </td>
+                <td><input class="form-control" id="totalFin<?php echo $fR->id_karyawan; ?>" type="text" name="totalakhir[<?php echo $fR->id_karyawan; ?>]" value="" readonly> </td>
               </tr>
               <script type="text/javascript">
               $(document).ready(function(){
@@ -174,6 +176,11 @@
                   sumC += parseFloat($(this).text());
                 });
                 $('#finRes<?php echo $fR->id_karyawan; ?>').val(sumC.toFixed(3));
+                var setengah = 0.5;
+                var tK = parseFloat($('.totK<?php echo $fR->id_karyawan ?>').val());
+                var tA = parseFloat($('.totA<?php echo $fR->id_karyawan ?>').val());
+                var sums = (tK*setengah)+(tA*setengah);
+                $('#totalFin<?php echo $fR->id_karyawan; ?>').val(sums.toFixed(3));
               });
               </script>
             <?php endforeach; ?>

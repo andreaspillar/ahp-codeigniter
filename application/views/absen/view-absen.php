@@ -22,7 +22,7 @@
                 <td><?php echo $dk->nama_absen; ?></td>
                 <td><?php echo round($dk->jumlah_absen,3); ?></td>
                 <td><?php echo $num; ?></td>
-                <td><a class="btn-fill btn-warning btn pe-7s-config" href="<?php echo site_url('welcome/chkrit_pg/'.$dk->id_absen); ?>" title="Ubah"></a>&nbsp<a class="btn-fill btn-danger btn pe-7s-close" href="<?php echo site_url('welcome/delKrit/'.$dk->id_absen); ?>" title="Hapus"></a></td>
+                <td><a class="btn-fill btn-warning btn pe-7s-config" href="<?php echo site_url('welcome/chkrit_pg/'.$dk->id_absen); ?>" title="Ubah"></a></td>
               </tr>
               <?php $num++;
             }?>

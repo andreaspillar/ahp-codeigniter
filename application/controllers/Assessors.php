@@ -26,54 +26,63 @@ class Assessors extends Login {
 		}
 	}
 
-//pindah halaman
-	public function index()
+// navigation: karyawan-saya
+	public function index() //view page
 	{
 		 $this->load->view('karyawan/data-karyawan-rs');
 	}
-
-	public function viewRank()
-	{
-		$this->load->view('karyawan/final-karyawan-asc');
-	}
-	public function rank($value)
-	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-rs',$data);
-	}
-	public function rankn($value)
-	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-rs-edit',$data);
-	}
-
-	// dataKaryawan
-	public function dataKDJ($idJ)
-	{
-		$idD = $this->session->userdata('logged')['divisi'];
-		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/data/karyasc',$data);
-	}
-	public function dataKDMan()
-	{
-		$idD = $this->session->userdata('logged')['divisi'];
-		$data['karyawan']=$this->Manager->get_noKBID($idD);
-		$this->load->view('karyawan/data/karyasc',$data);
-	}
-	public function dataKDKbid()
+	public function dataKDKbid() //view jquery untuk manajer
 	{
 		$idD = $this->session->userdata('logged')['divisi'];
 		$data['karyawan']=$this->Manager->get_KBID($idD);
-		$this->load->view('karyawan/data/karyasc',$data);
+		$this->load->view('karyawan/data/prop-asc/karyasc',$data);
 	}
-	public function rka($idJ)
+	public function rank_man_new($value) //view modal nilai baru
 	{
-  	$idD =  $this->session->userdata('logged')['divisi'];
-		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/ranking/kary',$data);
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-asc/nilai-karyawan-rs',$data);
 	}
+	public function rank_man_edit($value) //view modal ubah
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-asc/nilai-rs-edit',$data);
+	}
+	//UNTUK KABID
+	public function dataKDMan() //view jquery untuk kabid
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_noKBID($idD);
+		$this->load->view('karyawan/data/prop-kbid/karyasc',$data);
+	}
+	public function rank_kb_new($value) //view modal nilai baru kabid
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-kbid/nilai-karyawan-rs',$data);
+	}
+	public function rank_kb_edit($value) //view modal ubah kabid
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-kbid/nilai-rs-edit',$data);
+	}
+	public function dataKDJ($idJ) //view jquery untuk kabid per jabatan
+	{
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/data/prop-kbid/karykdj',$data);
+	}
+	public function rank_kdj_new($value) //view modal nilai baru kabid
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-kbid/nilai-kdj-new',$data);
+	}
+	public function rank_kdj_edit($value) //view modal ubah kabid
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-kbid/nilai-kdj-edit',$data);
+	}
+// -----------------------------------------------------------------------------
 
-	//fungsi
+//fungsi
 	public function updNiQa()
 	{
 		$idQ = $this->input->post('idqar');

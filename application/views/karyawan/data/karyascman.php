@@ -73,7 +73,7 @@
                 <?php endforeach; ?>
             </td>
             <td>
-              <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('HR/rank/'.$qar->id_karyawan) ?>" >Ubah</a>
+              <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('HR/rankexist/'.$qar->id_karyawan) ?>" >Ubah</a>
             </td>
           </tr>
           <?php }
@@ -122,7 +122,7 @@
                 <td hidden><?php echo $qar->tanggal_masuk; ?></td>
                 <td hidden><?php echo $qar->pendidikan; ?></td>
                 <td>
-                  <a class="btn btn-block btn-fill btn-primary btUB" data-href="<?php echo site_url('PU/rankn/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button" ><i class="pe-7s-graph1"></i> Nilai</a>
+                  <a class="btn btn-block btn-fill btn-primary btUB" data-href="<?php echo site_url('PU/rank_pu_new/'.$qar->id_karyawan); ?>" title="Nilai Karyawan" type="button" ><i class="pe-7s-graph1"></i> Nilai</a>
                 </td>
               <?php } ?>
             </tr>
@@ -162,7 +162,7 @@
                 <?php endforeach; ?>
             </td>
             <td>
-              <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('PU/rank/'.$qar->id_karyawan) ?>" >Ubah</a>
+              <a class="btn btn-info btn-fill btn-block btUB" data-href="<?php echo site_url('PU/rank_pu_edit/'.$qar->id_karyawan) ?>" >Ubah</a>
             </td>
           </tr>
           <?php }

@@ -53,21 +53,25 @@
               event.preventDefault();
               var sk = $('.sorkar').val();
               var sm = $('.sordiv').val();
-              <?php foreach ($jab as $J): ?>
               <?php foreach ($divi as $dI): ?>
+              <?php foreach ($jab as $J): ?>
               if ((sm=='<?php echo $dI->id_bagian ?>')&&(sk=='<?php echo $J->unique_jabatan; ?>')) {
                 $('#warn').html('');
                 $('#clk').load("<?php echo site_url('PU/rka/'.$J->unique_jabatan.'/'.$dI->unique_bagian); ?>");
               }
-              <?php endforeach; ?>
               else if((sk=='<?php echo $J->unique_jabatan ?>')&&(sm=='')) {
                 $('#warn').html('');
                 $('#clk').load("<?php echo site_url('PU/rkj/'.$J->unique_jabatan); ?>");
               }
-              else if (!sk) {
-                $('#warn').html('Perhatian: Pilih Jabatan Untuk Melihat Hasil');
+              <?php endforeach; ?>
+              else if ((sk=='')&&(sm==<?php echo $dI->id_bagian ?>)) {
+                $('#warn').html('');
+                $('#clk').load("<?php echo site_url('PU/rkd/'.$dI->unique_bagian); ?>");
               }
               <?php endforeach; ?>
+              else if (!sk && !sm) {
+                $('#warn').html('Perhatian: Pilih Jabatan Untuk Melihat Hasil');
+              }
             });
           });
           </script>

@@ -1,3 +1,4 @@
+<!-- I THINK THIS IS DEPRECATED VIEW -->
 <?php
  	require_once(APPPATH.'views/include/header.php');
 ?>
@@ -5,7 +6,7 @@
   <div class="card">
     <div class="card card-plain">
       <div class="content table-responsive table-full-width">
-        <form class="" action="<?php echo site_url('welcome/updNiQa'); ?>" method="post">
+        <form id="form" action="<?php// echo site_url('welcome/updNiQa'); ?>" method="post">
           <table class="table table-hover table-striped">
             <?php foreach ($nilK as $a){
               $ra = $a->id_karyawan;
@@ -91,11 +92,30 @@
               </tr>
               <tr>
                 <td colspan="2"><a class="btn btn-warning btn-fill" href="<?php echo site_url('welcome/page3/'); ?>" onmouseover="demo.showBack('top','center');" name="button"><i class="pe-7s-back"></i>&nbsp&nbsp Kembali</a>
-                  <button class="btn btn-fill btn-info" type="submit">Nilai Karyawan</button></td>
+                  <button class="btn btn-fill btn-info" id="btn" type="submit">Nilai Karyawan</button></td>
               </tr>
             <?php } ?>
           </table>
         </form>
+        <script type="text/javascript">
+          $('#btn').click(function(event) {
+             form = $("#form").serialize();
+
+           $.ajax({
+             type: "POST",
+             url: "<?php  echo site_url('welcome/updNiQa'); ?>",
+             data: form,
+
+             success: function(data){
+                 // alert('Successful!');
+                 $('#ubahModal').modal('hide');
+             }
+           });
+           event.preventDefault();
+           return false;
+
+          });
+        </script>
       </div>
     </div>
   </div>

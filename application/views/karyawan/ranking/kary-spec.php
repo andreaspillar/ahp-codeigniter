@@ -12,6 +12,7 @@
           <th>Nilai Absen</th>
           <th>Nilai Total</th>
           <th>Departemen</th>
+          <th>Jabatan</th>
           <th>Ranking</th>
         </tr>
       </thead>
@@ -19,13 +20,13 @@
     <?php
     $jumlahKaryawan = count($finKa);
     $rank = 1;
-    echo $jumlahKaryawan;
+    // echo $jumlahKaryawan;
     foreach ($finKa as $fI):
       ?>
-      <?php if ($jumlahKaryawan < 10): ?>
+      <?php if ($jumlahKaryawan <= 10): //JIKA < 10 ?>
         <?php if ($fI->jabatan=='Manajer')://if MANAJER
           $totalrow = $jumlahKaryawan/2;
-          $proma1 = $totalrow*0.5;
+          $proma1 = $totalrow*0.35;
           $roundKaryawan = round($proma1);?>
           <?php if ($rank <= $roundKaryawan): ?>
             <?php if (($fI->final_nilai==0.000000)||($fI->final_absen==0.000000)) { ?>
@@ -35,6 +36,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -44,6 +46,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -56,6 +59,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -65,6 +69,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -77,6 +82,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -86,6 +92,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -111,6 +118,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -120,6 +128,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -132,6 +141,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -141,6 +151,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -153,6 +164,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -162,6 +174,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -174,6 +187,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -183,6 +197,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -195,6 +210,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -204,6 +220,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -227,6 +244,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -236,6 +254,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -248,6 +267,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -257,6 +277,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -269,6 +290,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -278,6 +300,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -290,6 +313,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -299,6 +323,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -322,6 +347,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -331,6 +357,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -343,6 +370,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -352,6 +380,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -364,6 +393,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -373,6 +403,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -385,6 +416,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -394,6 +426,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -438,6 +471,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -447,6 +481,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -459,6 +494,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -468,6 +504,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -480,6 +517,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -489,6 +527,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -512,6 +551,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -521,6 +561,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -533,6 +574,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -542,6 +584,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -554,6 +597,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -563,6 +607,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -575,6 +620,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -584,14 +630,13 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
             <?php } ?>
           <?php endif;//selesai permisalan KABID?>
         <?php endif; ?>
-
-
       <?php else: //JIKA >10 ?>
         <?php if ($fI->jabatan=='Manajer')://if MANAJER
           $proma1 = $jumlahKaryawan*0.35;
@@ -604,6 +649,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -613,6 +659,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -625,6 +672,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -634,6 +682,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -659,6 +708,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -668,6 +718,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -680,6 +731,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -689,6 +741,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -701,6 +754,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -710,6 +764,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -722,6 +777,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -731,6 +787,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -758,6 +815,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -767,6 +825,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -779,6 +838,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -788,6 +848,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -800,6 +861,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -809,6 +871,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -821,6 +884,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -830,6 +894,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -842,6 +907,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -851,6 +917,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang Sekali'; ?></td>
               </tr>
@@ -882,6 +949,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -891,6 +959,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -903,6 +972,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -912,6 +982,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -924,6 +995,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -933,6 +1005,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -945,6 +1018,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -954,6 +1028,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -966,6 +1041,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -975,6 +1051,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang Sekali'; ?></td>
               </tr>
@@ -1006,6 +1083,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1015,6 +1093,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -1027,6 +1106,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1036,6 +1116,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -1048,6 +1129,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1057,6 +1139,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -1069,6 +1152,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1078,6 +1162,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -1090,6 +1175,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1099,6 +1185,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang Sekali'; ?></td>
               </tr>
@@ -1130,6 +1217,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1139,6 +1227,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik Sekali'; ?></td>
               </tr>
@@ -1151,6 +1240,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1160,6 +1250,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Baik'; ?></td>
               </tr>
@@ -1172,6 +1263,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1181,6 +1273,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Cukup'; ?></td>
               </tr>
@@ -1193,6 +1286,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1202,6 +1296,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang'; ?></td>
               </tr>
@@ -1214,6 +1309,7 @@
                 <td><?php echo 'Belum Dianalisa'; ?></td>
                 <td><?php echo 'Belum Selesai'; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo 'N/A'; ?></td>
               </tr>
             <?php } else { ?>
@@ -1223,6 +1319,7 @@
                 <td id="htua"><?php echo $fI->final_absen; ?></td>
                 <td id="total"><?php echo $fI->final_total; ?></td>
                 <td><?php echo $fI->divisi; ?></td>
+                <td><?php echo $fI->jabatan; ?></td>
                 <td><?php echo $rank; ?></td>
                 <td><?php echo 'Kurang Sekali'; ?></td>
               </tr>
@@ -1234,8 +1331,6 @@
           <?php endif;//selesai permisalan KABID?>
         <?php endif; ?>
       <?php endif; ?>
-
-
     <?php
       $rank++;
       endforeach; ?>

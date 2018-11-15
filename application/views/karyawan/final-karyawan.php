@@ -29,7 +29,7 @@
                 </select>
                 <label for="sorkar">Pilih Jabatan</label>
                 <select class="form-control sorkar" id="sorkar">
-                  <option disabled selected value="">--</option>
+                  <option selected value="">Semua Jabatan</option>
                   <?php foreach ($jab as $jB): ?>
                     <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
                   <?php endforeach; ?>
@@ -61,14 +61,22 @@
                 $('#clk').load("<?php echo site_url('HR/rka/'.$J->unique_jabatan.'/'.$dI->unique_bagian); ?>");
               }
               <?php endforeach; ?>
-              else if((sk=='<?php echo $J->unique_jabatan ?>')&&(sm=='')) {
+              <?php endforeach; ?>
+              <?php foreach ($jab as $J): ?>
+              if((sk=='<?php echo $J->unique_jabatan ?>')&&(sm=='')) {
                 $('#warn').html('');
                 $('#clk').load("<?php echo site_url('HR/rkj/'.$J->unique_jabatan); ?>");
               }
-              else if (!sk) {
-                $('#warn').html('Perhatian: Pilih Jabatan Untuk Melihat Hasil');
+              <?php endforeach; ?>
+              <?php foreach ($divi as $dI): ?>
+              if ((sk=='')&&(sm==<?php echo $dI->id_bagian ?>)) {
+                $('#warn').html('');
+                $('#clk').load("<?php echo site_url('HR/rkd/'.$dI->unique_bagian); ?>");
               }
               <?php endforeach; ?>
+              if (!sk && !sm) {
+                $('#warn').html('Perhatian: Pilih Jabatan Untuk Melihat Hasil');
+              }
             });
           });
           </script>

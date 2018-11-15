@@ -28,50 +28,65 @@ class PU extends Login {
 	}
 
 //pindah halaman
+// navigation: peringkat karyawan
 	public function index()
 	{
 			$this->load->view('karyawan/final-karyawan-PU');
 	}
-	public function karyawanku()
-	{//ganti view
-		 $this->load->view('karyawan/data-rs-man');
-	}
-	public function karyawanJ($idJ)
+	public function rka($idJ,$idD)
 	{
-		$data['karyawan']=$this->Manager->get_by_jonly($idJ);
-		$this->load->view('karyawan/data/karyascman',$data);
+		$idJ =  $this->uri->segment(3);
+		$idD =  $this->uri->segment(4);
+		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
+	}
+	public function rkj($idJ)
+	{
+		$data['finKa']=$this->Manager->get_by_jonly($idJ);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
+	}
+	public function rkd($idD)
+	{
+		$data['finKa']=$this->Manager->get_by_donly($idD);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
+	}
+	public function allRK()
+	{
+		$data['finKa']=$this->Manager->get_try();
+		$this->load->view('karyawan/ranking/kary-spec',$data);
+	}
+// -----------------------------------------------------------------------------
+
+// navigation: nilai manajer
+	public function karyawanku()
+	{
+		 $this->load->view('karyawan/data-rs-man');
 	}
 	public function karyawanNJ()
 	{
 		$data['karyawan']=$this->Manager->get_MAN();
 		$this->load->view('karyawan/data/karyascman',$data);
 	}
+	public function rank_pu_edit($value)
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-pu/nilai-karyawan-edit',$data);
+	}
+	public function rank_pu_new($value)
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-pu/nilai-karyawan-edma',$data);
+	}
+// -----------------------------------------------------------------------------
+	public function karyawanJ($idJ)
+	{
+		$data['karyawan']=$this->Manager->get_by_jonly($idJ);
+		$this->load->view('karyawan/data/karyascman',$data);
+	}
 
 
 	//finalresuls:')
-	public function rank($value)
-	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-edit',$data);
-	}
-	public function rankn($value)
-	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-edma',$data);
-	}
-	public function rka($idJ,$idD)
-	{
-		$idJ =  $this->uri->segment(3);
-  	$idD =  $this->uri->segment(4);
-		$data['NalKa']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/ranking/kary-spec',$data);
-	}
-	public function rkj($idJ)
-	{
-		$data['NalKa']=$this->Manager->get_by_jonly($idJ);
-		$this->load->view('karyawan/ranking/kary',$data);
-		// $this->load->view('karyawan/ranking/kary');
-	}
+
 	public function dataK()
 	{
 		$data['karyawan']=$this->Manager->get_data();
@@ -119,30 +134,8 @@ class PU extends Login {
 		$update=$this->Kriteria->updateKrit(array('id_kriteria'=>$idKr),$data);
 		redirect('HR/index');
 	}
-	public function updNiQa()
-	{
-		$idQ = $this->input->post('idqar');
-		$this->Detkar->deltabID($idQ);
-		$cRQ = $_POST['C'];
-		$nLQ = $_POST['KR'];
-		$niQ = $this->input->post('total');
-		$data = array(
-			'nilai'=>$niQ,
-		);
-		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
-		foreach ($cRQ as $Kr => $v) {
-			$datb = array(
-				'id_kriteria' => $v,
-				'id_karyawan' => $idQ,
-				'nilai_kriteria' => $nLQ[$Kr]
-			);
-			$this->Detkar->insertArray($datb);
-		}
-		redirect('PU/karyawanku');
-	}
 	//FOR KARYAWANKU
-
-	public function updNiQaKu()
+	public function updNiQaku()
 	{
 		$idQ = $this->input->post('idqar');
 		$this->Detkar->deltabID($idQ);
@@ -163,109 +156,5 @@ class PU extends Login {
 		}
 		redirect('PU/karyawanku');
 	}
-	public function updateNiKr()
-	{
-		$idkr = $_POST['id_kriteria'];
-		$nakr = $_POST['hasil'];
-		foreach ($idkr as $ide => $al) {
-			$datc = array(
-				'jumlah_kriteria' => $nakr[$ide],
-			);
-			$this->Kriteria->updateKrit(array('id_kriteria'=>$al),$datc);
-		}
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
-	}
-
-	public function showTabel()
-	{
-		$cleT = $this->Ankrit->clearTB();
-		$crit = $_POST['C'];
-		$opt = $_POST['W'];
-		$crib = $_POST['X'];
-		foreach ($crit as $key => $vl) {
-			$data = array(
-				'kriteria_x'=>$vl,
-				'nilai_krit'=>$opt[$key],
-				'kriteria_y'=>$crib[$key]
-			);
-			$insert = $this->Ankrit->insertArray($data);
-		}
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
-	}
-
-	public function insertKriteria()
-	{
-		$crit = $this->input->post('id_kriteria');
-		$nama = $this->input->post('nama_kriteria');
-		$harga = 0;
-		$data = array(
-			'id_kriteria' => $crit,
-			'nama_kriteria' => $nama,
-			'jumlah_kriteria' => $harga,
-		 	);
-		$insert=$this->Kriteria->insertKriteria($data);
-		redirect('HR/index');
-	}
-	public function updateUSR()
-	{
-		$idU = $this->input->post('id_user');
-		$id = $this->input->post('username');
-		$psw = $this->input->post('password');
-		$jbt = $this->input->post('jabatan');
-		$dvs = $this->input->post('divisi');
-		$data = array(
-			'username' => $id,
-			'password' => $psw,
-			'divisi' => $dvs,
-			'levels' => $jbt,
-		 );
-		 $update=$this->Users->updateMan(array('id_user'=>$idU),$data);
-		 redirect('HR/shw_user');
-	}
-	public function updadpu()
-	{
-		$idU = $this->input->post('id_user');
-		$id = $this->input->post('username');
-		$psw = $this->input->post('password');
-		$data = array(
-			'username' => $id,
-			'password' => $psw,
-		 );
-		 $update=$this->Users->updateMan(array('id_user'=>$idU),$data);
-		 redirect('HR/shw_user');
-	}
-	public function usr_add()
-	{
-		$adus = $this->input->post('username');
-		$adpa = $this->input->post('password');
-		$adja = $this->input->post('jabatan');
-		$addi = $this->input->post('divisi');
-		$data = array(
-				'username'=>$adus,
-				'password'=>$adpa,
-				'levels'=>$adja,
-				'divisi'=>$addi
-		);
-		$insert = $this->Users->insertUsers($data);
-		redirect('HR/shw_user');
-	}
-	public function delKrit($idKr)
-	{
-		$this->Kriteria->delKrit($idKr);
-		redirect('HR/index');
-	}
-	public function resetall()
-	{
-		$nilaiR = array(
-			'nilai' => 0,
-			'absen' => 0,
-			'final_nilai' => 0,
-			'final_absen' => 0,
-			'final_total' => 0
-	 );
-		$this->Manager->resetN($nilaiR);
-		redirect('HR/page3');
-	}
+	
 }

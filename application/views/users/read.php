@@ -16,11 +16,20 @@
           </thead>
           <tbody>
           <?php foreach ($users as $usr): ?>
-            <?php if (($usr->levels==0)||($usr->levels==-1)): ?>
+            <?php if ($usr->levels==-1): ?>
               <tr>
                 <td class="col-xs-3"><?php echo $usr->username; ?></td>
                 <td><?php echo $usr->divisi; ?></td>
-                <td><?php echo $usr->levels; ?></td>
+                <td><?php echo 'Pimpinan Unit'; ?></td>
+                <td class="col-xs-3">
+                  <a class="btn-block btn-fill btn-warning btn" href="<?php echo site_url('HR/chuser/'.$usr->username); ?>" title="Ubah Data User" type="button"><i class="pe-7s-config"></i> Ubah</a>
+                </td>
+              </tr>
+            <?php elseif ($usr->levels==0): ?>
+              <tr>
+                <td class="col-xs-3"><?php echo $usr->username; ?></td>
+                <td><?php echo 'HR-GA'; ?></td>
+                <td><?php echo 'Admin HR'; ?></td>
                 <td class="col-xs-3">
                   <a class="btn-block btn-fill btn-warning btn" href="<?php echo site_url('HR/chuser/'.$usr->username); ?>" title="Ubah Data User" type="button"><i class="pe-7s-config"></i> Ubah</a>
                 </td>

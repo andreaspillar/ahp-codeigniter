@@ -10,35 +10,68 @@
             <h4 class="title">Halaman Data Karyawan</h4>
             <p class="category">Cari Menggunakan Kriteria Di Bawah Ini</p>
           </div>
+          <div class="content">
+            <div class="row">
+              <div class="col-md-5">
+                <?php
+                $this->db->where('id_jabatan >','1');
+                $this->db->from('jabatan');
+                $query=$this->db->get();
+                $jab=$query->result();
+
+                $this->db->from('bagian_divisi');
+                $query=$this->db->get();
+                $divi=$query->result();
+                ?>
+                <div class="form-group">
+                  <label for="sordiv">Pilih Departemen</label>
+                  <select class="form-control sordiv" id="sordiv">
+                    <option selected value="">Semua Departemen</option>
+                    <?php foreach ($divi as $D): ?>
+                    <option value="<?php echo $D->id_bagian; ?>"><?php echo $D->unique_bagian ?></option>
+                  <?php endforeach; ?>
+                  </select>
+                  <label for="sorkar">Pilih Jabatan</label>
+                  <select class="form-control sorkar" id="sorkar">
+                    <?php if ($this->session->userdata('logged')['level']==='1'): ?>
+                      <option value="" selected>Semua Jabatan</option>
+                      <?php foreach ($jab as $jB): ?>
+                        <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
+                      <?php endforeach; ?>
+                    <?php elseif($this->session->userdata('logged')['level']==='-1'): ?>
+                      <?php foreach ($jab as $jB): ?>
+                        <option value="<?php echo $jB->unique_jabatan ?>"><?php echo $jB->alias_jabatan ?></option>
+                      <?php endforeach; ?>
+                    <?php endif; ?>
+                  </select><br>
+                  <button class="btn btn-fill btn-info btnsend" type="button" id="btnsend" name="button">Cari</button>&nbsp&nbsp&nbsp
+                  <span class="text-danger" id="warn"></span>
+                </div>
+              </div>
+            </div>
+          </div>
         <?php else: ?>
           <div class="header">
-            <h4 class="title">Halaman Penilaian Manajer</h4>
+            <h4 class="title">Halaman Data Karyawan</h4>
             <p class="category">Cari Menggunakan Kriteria Di Bawah Ini</p>
           </div>
-        <?php endif; ?>
         <div class="content">
           <div class="row">
             <div class="col-md-5">
+              <?php
+              $this->db->from('jabatan');
+              $query=$this->db->get();
+              $jab=$query->result();
+
+              $this->db->from('bagian_divisi');
+              $query=$this->db->get();
+              $divi=$query->result();
+              ?>
               <div class="form-group">
                 <label for="sordiv">Pilih Departemen</label>
                 <select class="form-control sordiv" id="sordiv">
                   <option selected value="">Semua Departemen</option>
-                  <?php
-                  if ($this->session->userdata('logged')['level']==='1') {
-                    $this->db->where('id_jabatan >','1');
-                    $this->db->from('jabatan');
-                    $query=$this->db->get();
-                    $jab=$query->result();
-                  } else if($this->session->userdata('logged')['level']==='-1') {
-                    $this->db->where('id_jabatan','1');
-                    $this->db->from('jabatan');
-                    $query=$this->db->get();
-                    $jab=$query->result();
-                  }
-                  $this->db->from('bagian_divisi');
-                  $query=$this->db->get();
-                  $divi=$query->result();
-                  foreach ($divi as $D): ?>
+                  <?php foreach ($divi as $D): ?>
                   <option value="<?php echo $D->id_bagian; ?>"><?php echo $D->unique_bagian ?></option>
                 <?php endforeach; ?>
                 </select>
@@ -61,6 +94,7 @@
             </div>
           </div>
         </div>
+          <?php endif; ?>
       </div>
     </div>
     <script type="text/javascript">

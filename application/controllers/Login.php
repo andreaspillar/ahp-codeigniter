@@ -60,7 +60,7 @@ class Login extends CI_Controller {
         }
 				return $level;
     }else{
-				$msg = "Username atau Password yang diberikan mungkin salah";
+				$msg = "Username atau Password Salah";
 				$this->session->set_flashdata('msg', $msg);
         redirect('login/index');
     }

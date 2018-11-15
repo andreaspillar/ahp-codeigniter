@@ -62,5 +62,10 @@ class users extends CI_Model{
 		$this->db->insert($this->table,$data);
 		return $this->db->insert_id();
 	}
+	public function deleteUser($value)
+	{
+		$this->db->where('username', $value);
+		$this->db->delete($this->table);
+	}
 }
 ?>

@@ -158,7 +158,7 @@ header("location: login");
 								</a>
 							</li>
 							<li>
-								<a href="<?php echo site_url('HR/finalView');?>" role="button">
+								<a href="<?php echo site_url('HR/lastView');?>" role="button">
 									<i class="pe-7s-medal"></i>
 									<p>Peringkat Karyawan</p>
 								</a>
@@ -205,12 +205,6 @@ header("location: login");
 								<a href="<?php echo site_url('assessors/index');?>" role="button">
 									<i class="pe-7s-user"></i>
 									<p>Karyawan Saya</p>
-								</a>
-							</li>
-							<li>
-								<a href="<?php echo site_url('assessors/viewRank');?>" role="button">
-									<i class="pe-7s-medal"></i>
-									<p>Ranking Karyawan Saya</p>
 								</a>
 							</li>
 						</ul>

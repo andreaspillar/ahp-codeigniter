@@ -74,127 +74,270 @@ class HR extends Login {
 	}
 	// end testing room
 
-//pindah halaman
+
+// navigation: indikator (kriteria)
 	public function index()
 	{
 			$data['data_kriteria']=$this->Kriteria->get_asc();
 			$this->load->view('kriteria/view-kriteria',$data);
 	}
-	public function page2()
+	public function chkrit_pg($idk) //ganti kriteria
 	{
-		$data2['data_kriteria']=$this->Kriteria->get_data();
-		$this->load->view('nilai-kriteria/read-nilai',$data2);
+		$data['ubah']=$this->Kriteria->get_id($idk);
+		$this->load->view('kriteria/edit-kriteria',$data);
 	}
-	public function page2_kb()
+	public function updateKriteria() //function ganti kriteria
 	{
-		$data2['data_kriteria']=$this->KriteriaB->get_data();
-		$this->load->view('nilai-kriteria/read-kriteria-b',$data2);
+		$idKr = $this->input->post('id_kriteria');
+		$nmKr = $this->input->post('nama_kriteria');
+		$ks = $this->input->post('kurang_sekali');
+		$k = $this->input->post('kurang');
+		$c = $this->input->post('cukup');
+		$b = $this->input->post('baik');
+		$bs = $this->input->post('baik_sekali');
+		$data = array(
+			'nama_kriteria' => $nmKr,
+			'ket_nil1' => $ks,
+			'ket_nil2' => $k,
+			'ket_nil3' => $c,
+			'ket_nil4' => $b,
+			'ket_nil5' => $bs,
+		 );
+		$update=$this->Kriteria->updateKrit(array('id_kriteria'=>$idKr),$data);
+		$updateB=$this->KriteriaB->updateKrit(array('id_kriteria'=>$idKr),$data);
+		$updateO=$this->KriteriaO->updateKrit(array('id_kriteria'=>$idKr),$data);
+		redirect('HR/index');
 	}
-	public function page2_op()
+	public function delKrit($idKr)
 	{
-		$data2['data_kriteria']=$this->KriteriaO->get_data();
-		$this->load->view('nilai-kriteria/read-kriteria-o',$data2);
+		$this->Kriteria->delKrit($idKr);
+		redirect('HR/index');
 	}
-	public function page3()
-	{
-		$this->load->view('karyawan/data-karyawan-man.php');
-	}
-	public function plusid()
-	{
-		$this->load->view('kriteria/baru-kriteria');
-	}
-
 	public function addkrit_pg()
 	{
 		$data['data']=$this->Kriteria->getIDBaru();
 		$this->load->view('kriteria/tambah-kriteria',$data);
 	}
-	public function chkrit_pg($idk)
+// -----------------------------------------------------------------------------
+
+// navigation: prioritas indikator
+	public function page2() //view tabel manajer
 	{
-		$data['ubah']=$this->Kriteria->get_id($idk);
-		$this->load->view('kriteria/edit-kriteria',$data);
+		$data2['data_kriteria']=$this->Kriteria->get_data();
+		$this->load->view('nilai-kriteria/read-nilai',$data2);
 	}
-	public function adperson_pg()
+	public function page2_kb() //view tabel kabid
 	{
-		$data['data']=$this->Manager->getIDBaru();
-		$this->load->view('karyawan/tambah-karyawan',$data);
+		$data2['data_kriteria']=$this->KriteriaB->get_data();
+		$this->load->view('nilai-kriteria/read-kriteria-b',$data2);
 	}
-	public function chperson_pg($idg){
-		$data['ubah']=$this->Manager->get_id($idg);
-		$this->load->view('karyawan/ubah-karyawan',$data);
-	}
-	public function person_rank()
+	public function page2_op() //view tabel operator
 	{
-		$this->load->view('karyawan/ranking-karyawan');
+		$data2['data_kriteria']=$this->KriteriaO->get_data();
+		$this->load->view('nilai-kriteria/read-kriteria-o',$data2);
 	}
-	public function rank($value)
+	public function showTabel() //kalkulasi tabel manajer
 	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-edit',$data);
+		$cleT = $this->Ankrit->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'kriteria_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'kriteria_y'=>$crib[$key]
+			);
+			$insert = $this->Ankrit->insertArray($data);
+		}
+		$datb['tabel'] = $this->Ankrit->get_data();
+		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
-	public function rankn($value)
+	public function showTbKbid()	//kalkulasi tabel kabid
 	{
-		$data['nilK']=$this->Manager->get_id($value);
-		$this->load->view('karyawan/nilai/nilai-karyawan-man',$data);
+		$cleT = $this->AKKB->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'kriteria_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'kriteria_y'=>$crib[$key]
+			);
+			$insert = $this->AKKB->insertArray($data);
+		}
+		$datb['tabel'] = $this->AKKB->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
 	}
-	public function add_user()
+	public function showTbOp()	//kalkulasi tabel operator
 	{
-		$this->load->view('users/tambah');
+		$cleT = $this->AKOP->clearTB();
+		$crit = $_POST['C'];
+		$opt = $_POST['W'];
+		$crib = $_POST['X'];
+		foreach ($crit as $key => $vl) {
+			$data = array(
+				'kriteria_x'=>$vl,
+				'nilai_krit'=>$opt[$key],
+				'kriteria_y'=>$crib[$key]
+			);
+			$insert = $this->AKOP->insertArray($data);
+		}
+		$datb['tabel'] = $this->AKOP->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
 	}
-	public function shw_user()
-	{
-		$data['users']=$this->Users->get_byL();
-		$this->load->view('users/read',$data);
-	}
-	public function chuser($idU)
-	{
-		$data['usub']=$this->Users->get_user($idU);
-		$this->load->view('users/ubah',$data);
-	}
-	public function finalView()
-	{
-		$this->load->view('karyawan/final-karyawan');
-	}
-// showTBAn
-	public function tabelAnalisa()
+// -----------------------------------------------------------------------------
+
+// navigation: analisa indikator
+	public function tabelAnalisa() //analisa manajer
 	{
 		$datb['tabel'] = $this->Ankrit->get_data();
 		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
-	public function tabelAnalisaKb()
+	public function tabelAnalisaKb() //analisa kabid
 	{
 		$datb['tabel'] = $this->AKKB->get_data();
 		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
 	}
-	public function tabelAnalisaOp()
+	public function tabelAnalisaOp()	//analisa operator
 	{
 		$datb['tabel'] = $this->AKOP->get_data();
 		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
 	}
-// showTBAb
-	public function tabelAbsen()
-	{
-		$datb['tabel'] = $this->Anab->get_data();
-		$this->load->view('nilai-absen/calculate-table',$datb);
-	}
+// -----------------------------------------------------------------------------
 
-	public function karyawanku()
+// navigation: karyawan
+	public function page3() //view page
+	{
+		$this->load->view('karyawan/data-karyawan-man.php');
+	}
+	public function dataK() //view jquery semua karyawan
+	{
+		$data['karyawan']=$this->Manager->get_data();
+		$this->load->view('karyawan/data/prop-man/kary-all',$data);
+	}
+	public function rank($value) //view modal kalo nilai kriteria sudah ada yang isi
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank',$data);
+	}
+	public function dataKDJ($idJ,$idD) // view jquery jabatan dan divisi
+	{
+		$idJ =  $this->uri->segment(3);
+		$idD =  $this->uri->segment(4);
+		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/data/prop-man/kary-specific',$data);
+	}
+	public function rank_specific($value) //view modal untuk datakdj
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank-specific',$data);
+	}
+	public function dataKD($idD) //view jquery divisi
+	{
+		$data['karyawan']=$this->Manager->get_by_dnoMANOR($idD);
+		$this->load->view('karyawan/data/prop-man/kary-divisi',$data);
+	}
+	public function rank_divisi($value) //view modal untuk datakdj
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank-divisi',$data);
+	}
+	public function dataKJ($idJ) //view jquery jabatan
+	{
+		$data['karyawan']=$this->Manager->get_by_jnoOR($idJ);
+		$this->load->view('karyawan/data/prop-man/kary-jabatan',$data);
+	}
+	public function rank_jabatan($value) //view modal untuk datakdj
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank-jabatan',$data);
+	}
+	public function resetall() //reset nilai karyawan
+	{
+		$nilaiR = array(
+			'nilai' => 0,
+			'absen' => 0,
+			'final_nilai' => 0,
+			'final_absen' => 0,
+			'final_total' => 0
+	 );
+		$this->Manager->resetN($nilaiR);
+		redirect('HR/page3');
+	}
+	public function updNiQa() //update nilai karyawan lain (dipakai juga di nilai karyawan saya)
+	{
+		$idQ = $this->input->post('idqar');
+		$this->Detkar->deltabID($idQ);
+		$cRQ = $_POST['C'];
+		$nLQ = $_POST['KR'];
+		$niQ = $this->input->post('total');
+		$data = array(
+			'nilai'=>$niQ,
+		);
+		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
+		foreach ($cRQ as $Kr => $v) {
+			$datb = array(
+				'id_kriteria' => $v,
+				'id_karyawan' => $idQ,
+				'nilai_kriteria' => $nLQ[$Kr]
+			);
+			$this->Detkar->insertArray($datb);
+		}
+		redirect('HR/page3');
+	}
+// -----------------------------------------------------------------------------
+
+// navigation: nilai karyawan saya
+	public function karyawanku() //view nilai karyawan saya
 	{
 		 $this->load->view('karyawan/data-rs-man');
 	}
-	public function karyawanJ($idJ)
+	public function karyawanJ($idJ) //view jquery karyawan
 	{
 		$idD = $this->session->userdata('logged')['divisi'];
 		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
 		$this->load->view('karyawan/data/karyascman',$data);
 	}
-	public function karyawanNJ()
+	public function rankn($value) //view modal nilai kriteria baru
 	{
-		$idD = $this->session->userdata('logged')['divisi'];
-		$data['karyawan']=$this->Manager->get_noMAN($idD);
-		$this->load->view('karyawan/data/karyascman',$data);
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank-manajer',$data);
 	}
+	public function rankexist($value) //view modal kalo nilai kriteria sudah ada yang isi
+	{
+		$data['nilK']=$this->Manager->get_id($value);
+		$this->load->view('karyawan/nilai/prop-manajer/rank-exist',$data);
+	}
+	public function updNiQaku()
+	{
+		$idQ = $this->input->post('idqar');
+		$this->Detkar->deltabID($idQ);
+		$cRQ = $_POST['C'];
+		$nLQ = $_POST['KR'];
+		$niQ = $this->input->post('total');
+		$data = array(
+			'nilai'=>$niQ,
+		);
+		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
+		foreach ($cRQ as $Kr => $v) {
+			$datb = array(
+				'id_kriteria' => $v,
+				'id_karyawan' => $idQ,
+				'nilai_kriteria' => $nLQ[$Kr]
+			);
+			$this->Detkar->insertArray($datb);
+		}
+		redirect('HR/karyawanku');
+	}
+// -----------------------------------------------------------------------------
 
+// navigation: analisa-karyawan
+	public function person_rank() //view analisa-karyawan
+	{
+		$this->load->view('karyawan/ranking-karyawan');
+	}
 	//ranking-karyawan
 	public function shw()
 	{
@@ -226,243 +369,66 @@ class HR extends Login {
 		$data['raK']=$this->KriteriaO->get_data();
 		$this->load->view('karyawan/persons/kshift',$data);
 	}
-
-
-	//finalresuls:')
-	public function rka($idJ,$idD)
-	{
-		$idJ =  $this->uri->segment(3);
-  	$idD =  $this->uri->segment(4);
-		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
-		// $this->load->view('karyawan/ranking/kary-spec',$data);
-		$this->load->view('karyawan/ranking/kary1',$data);
-	}
-	public function rkj($idJ)
-	{
-		$data['finKa']=$this->Manager->get_by_jonly($idJ);
-		// $this->load->view('karyawan/ranking/kary',$data);
-		$this->load->view('karyawan/ranking/kary1',$data);
-	}
-	public function allRK()
-	{
-		$data['finKa']=$this->Manager->get_try();
-		$this->load->view('karyawan/ranking/kary1',$data);
-	}
-	public function dataK()
-	{
-		$data['karyawan']=$this->Manager->get_noMAN();
-		$this->load->view('karyawan/data/kary-man',$data);
-	}
-	public function dataKDJ($idJ,$idD)
-	{
-		$idJ =  $this->uri->segment(3);
-		$idD =  $this->uri->segment(4);
-		$data['karyawan']=$this->Manager->get_by_jd($idJ,$idD);
-		$this->load->view('karyawan/data/kary-man',$data);
-	}
-	public function dataKJ($idJ)
-	{
-		$data['karyawan']=$this->Manager->get_by_jnoOR($idJ);
-		$this->load->view('karyawan/data/kary-man',$data);
-	}
-	public function dataKD($idD)
-	{
-		$data['karyawan']=$this->Manager->get_by_dnoMANOR($idD);
-		$this->load->view('karyawan/data/kary-man',$data);
-	}
-
-
-
-
-//fungsi
-	public function updateNiFi()
+	//end ranking-karyawan
+	public function updateNiFi() //update nilai final
 	{
 		$idkr = $_POST['idK'];
-		$nakr = $_POST['totalakhir'];
+		$nakr = $_POST['totalkriteria'];
+		$nato = $_POST['totalakhir'];
 		foreach ($idkr as $ide => $al) {
 			$datc = array(
 				'final_nilai' => $nakr[$ide],
+				'final_total' => $nato[$ide],
 			);
 			$this->Manager->updateMan(array('id_karyawan'=>$al),$datc);
 		}
 		redirect('HR/person_rank');
 	}
-	public function updateKriteria()
-	{
-		$idKr = $this->input->post('id_kriteria');
-		$nmKr = $this->input->post('nama_kriteria');
-		$ks = $this->input->post('kurang_sekali');
-		$k = $this->input->post('kurang');
-		$c = $this->input->post('cukup');
-		$b = $this->input->post('baik');
-		$bs = $this->input->post('baik_sekali');
-		$data = array(
-			'nama_kriteria' => $nmKr,
-			'ket_nil1' => $ks,
-			'ket_nil2' => $k,
-			'ket_nil3' => $c,
-			'ket_nil4' => $b,
-			'ket_nil5' => $bs,
-		 );
-		$update=$this->Kriteria->updateKrit(array('id_kriteria'=>$idKr),$data);
-		$updateB=$this->KriteriaB->updateKrit(array('id_kriteria'=>$idKr),$data);
-		$updateO=$this->KriteriaO->updateKrit(array('id_kriteria'=>$idKr),$data);
-		redirect('HR/index');
-	}
-	public function updNiQa()
-	{
-		$idQ = $this->input->post('idqar');
-		$this->Detkar->deltabID($idQ);
-		$cRQ = $_POST['C'];
-		$nLQ = $_POST['KR'];
-		$niQ = $this->input->post('total');
-		$data = array(
-			'nilai'=>$niQ,
-		);
-		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
-		foreach ($cRQ as $Kr => $v) {
-			$datb = array(
-				'id_kriteria' => $v,
-				'id_karyawan' => $idQ,
-				'nilai_kriteria' => $nLQ[$Kr]
-			);
-			$this->Detkar->insertArray($datb);
-		}
-		redirect('HR/page3');
-	}
-	//FOR KARYAWANKU
-	public function updNiQaku()
-	{
-		$idQ = $this->input->post('idqar');
-		$this->Detkar->deltabID($idQ);
-		$cRQ = $_POST['C'];
-		$nLQ = $_POST['KR'];
-		$niQ = $this->input->post('total');
-		$data = array(
-			'nilai'=>$niQ,
-		);
-		$update=$this->Manager->updateMan(array('id_karyawan'=>$idQ),$data);
-		foreach ($cRQ as $Kr => $v) {
-			$datb = array(
-				'id_kriteria' => $v,
-				'id_karyawan' => $idQ,
-				'nilai_kriteria' => $nLQ[$Kr]
-			);
-			$this->Detkar->insertArray($datb);
-		}
-		redirect('HR/karyawanku');
-	}
+// -----------------------------------------------------------------------------
 
-// updateNIKR
-	public function updateNiKr()
+// navigation: peringkat-karyawan
+	public function lastView()
 	{
-		$idkr = $_POST['id_kriteria'];
-		$nakr = $_POST['hasil'];
-		foreach ($idkr as $ide => $al) {
-			$datc = array(
-				'jumlah_kriteria' => $nakr[$ide],
-			);
-			$this->Kriteria->updateKrit(array('id_kriteria'=>$al),$datc);
-		}
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
+		$this->load->view('karyawan/final-karyawan');
 	}
-	public function updateNiKrB()
+// finalresuls:')
+	public function rka($idJ,$idD)
 	{
-		$idkr = $_POST['id_kriteria'];
-		$nakr = $_POST['hasil'];
-		foreach ($idkr as $ide => $al) {
-			$datc = array(
-				'jumlah_kriteria' => $nakr[$ide],
-			);
-			$this->KriteriaB->updateKrit(array('id_kriteria'=>$al),$datc);
-		}
-		$datb['tabel'] = $this->AKKB->get_data();
-		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+		$idJ =  $this->uri->segment(3);
+  	$idD =  $this->uri->segment(4);
+		$data['finKa']=$this->Manager->get_by_jd($idJ,$idD);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
 	}
-	public function updateNiKrO()
+	public function rkj($idJ)
 	{
-		$idkr = $_POST['id_kriteria'];
-		$nakr = $_POST['hasil'];
-		foreach ($idkr as $ide => $al) {
-			$datc = array(
-				'jumlah_kriteria' => $nakr[$ide],
-			);
-			$this->KriteriaO->updateKrit(array('id_kriteria'=>$al),$datc);
-		}
-		$datb['tabel'] = $this->AKOP->get_data();
-		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+		$data['finKa']=$this->Manager->get_by_jonly($idJ);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
 	}
-// end updateNIKR
-
-// tabelKRIT
-	public function showTabel()
+	public function rkd($idD)
 	{
-		$cleT = $this->Ankrit->clearTB();
-		$crit = $_POST['C'];
-		$opt = $_POST['W'];
-		$crib = $_POST['X'];
-		foreach ($crit as $key => $vl) {
-			$data = array(
-				'kriteria_x'=>$vl,
-				'nilai_krit'=>$opt[$key],
-				'kriteria_y'=>$crib[$key]
-			);
-			$insert = $this->Ankrit->insertArray($data);
-		}
-		$datb['tabel'] = $this->Ankrit->get_data();
-		$this->load->view('nilai-kriteria/calculate-table',$datb);
+		$data['finKa']=$this->Manager->get_by_donly($idD);
+		$this->load->view('karyawan/ranking/kary-spec',$data);
 	}
-	public function showTbKbid()
+	public function allRK()
 	{
-		$cleT = $this->AKKB->clearTB();
-		$crit = $_POST['C'];
-		$opt = $_POST['W'];
-		$crib = $_POST['X'];
-		foreach ($crit as $key => $vl) {
-			$data = array(
-				'kriteria_x'=>$vl,
-				'nilai_krit'=>$opt[$key],
-				'kriteria_y'=>$crib[$key]
-			);
-			$insert = $this->AKKB->insertArray($data);
-		}
-		$datb['tabel'] = $this->AKKB->get_data();
-		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+		$data['finKa']=$this->Manager->get_try();
+		$this->load->view('karyawan/ranking/kary-spec',$data);
 	}
-	public function showTbOp()
+// -----------------------------------------------------------------------------
+// navigation: pengguna
+	public function add_user()
 	{
-		$cleT = $this->AKOP->clearTB();
-		$crit = $_POST['C'];
-		$opt = $_POST['W'];
-		$crib = $_POST['X'];
-		foreach ($crit as $key => $vl) {
-			$data = array(
-				'kriteria_x'=>$vl,
-				'nilai_krit'=>$opt[$key],
-				'kriteria_y'=>$crib[$key]
-			);
-			$insert = $this->AKOP->insertArray($data);
-		}
-		$datb['tabel'] = $this->AKOP->get_data();
-		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+		$this->load->view('users/tambah');
 	}
-// end tabelKRIT
-
-	public function insertKriteria()
+	public function shw_user()
 	{
-		$crit = $this->input->post('id_kriteria');
-		$nama = $this->input->post('nama_kriteria');
-		$harga = 0;
-		$data = array(
-			'id_kriteria' => $crit,
-			'nama_kriteria' => $nama,
-			'jumlah_kriteria' => $harga,
-		 	);
-		$insert=$this->Kriteria->insertKriteria($data);
-		$insert=$this->KriteriaB->insertKriteria($data);
-		$insert=$this->KriteriaO->insertKriteria($data);
-		redirect('HR/index');
+		$data['users']=$this->Users->get_byL();
+		$this->load->view('users/read',$data);
+	}
+	public function chuser($idU)
+	{
+		$data['usub']=$this->Users->get_user($idU);
+		$this->load->view('users/ubah',$data);
 	}
 	public function updateUSR()
 	{
@@ -510,21 +476,77 @@ class HR extends Login {
 		$insert = $this->Users->insertUsers($data);
 		redirect('HR/shw_user');
 	}
-	public function delKrit($idKr)
+// -----------------------------------------------------------------------------
+
+	public function karyawanNJ()
 	{
-		$this->Kriteria->delKrit($idKr);
-		redirect('HR/index');
+		$idD = $this->session->userdata('logged')['divisi'];
+		$data['karyawan']=$this->Manager->get_noMAN($idD);
+		$this->load->view('karyawan/data/karyascman',$data);
 	}
-	public function resetall()
+
+//fungsi lain
+// insert kriteria
+public function insertKriteria()
+{
+	$crit = $this->input->post('id_kriteria');
+	$nama = $this->input->post('nama_kriteria');
+	$harga = 0;
+	$data = array(
+		'id_kriteria' => $crit,
+		'nama_kriteria' => $nama,
+		'jumlah_kriteria' => $harga,
+		);
+	$insert=$this->Kriteria->insertKriteria($data);
+	$insert=$this->KriteriaB->insertKriteria($data);
+	$insert=$this->KriteriaO->insertKriteria($data);
+	redirect('HR/index');
+}
+public function dluser($value)
+{
+	$this->Users->deleteUser($value);
+	redirect('HR/shw_user');
+}
+// -----------------------------------------------------------------------------
+// updateNIKR
+	public function updateNiKr()
 	{
-		$nilaiR = array(
-			'nilai' => 0,
-			'absen' => 0,
-			'final_nilai' => 0,
-			'final_absen' => 0,
-			'final_total' => 0
-	 );
-		$this->Manager->resetN($nilaiR);
-		redirect('HR/page3');
+		$idkr = $_POST['id_kriteria'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_kriteria' => $nakr[$ide],
+			);
+			$this->Kriteria->updateKrit(array('id_kriteria'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->Ankrit->get_data();
+		$this->load->view('nilai-kriteria/calculate-table',$datb);
 	}
+	public function updateNiKrB()
+	{
+		$idkr = $_POST['id_kriteria'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_kriteria' => $nakr[$ide],
+			);
+			$this->KriteriaB->updateKrit(array('id_kriteria'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->AKKB->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-kb',$datb);
+	}
+	public function updateNiKrO()
+	{
+		$idkr = $_POST['id_kriteria'];
+		$nakr = $_POST['hasil'];
+		foreach ($idkr as $ide => $al) {
+			$datc = array(
+				'jumlah_kriteria' => $nakr[$ide],
+			);
+			$this->KriteriaO->updateKrit(array('id_kriteria'=>$al),$datc);
+		}
+		$datb['tabel'] = $this->AKOP->get_data();
+		$this->load->view('nilai-kriteria/cal-tab-op',$datb);
+	}
+// -----------------------------------------------------------------------------
 }
